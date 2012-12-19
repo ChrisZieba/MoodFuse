@@ -1,4 +1,4 @@
-EntropyZX
+MoodFuse
 =========
 
 A simple way to enjoy new music based on your mood!
@@ -19,4 +19,4 @@ Coming Soon
 
 License
 -------
-Tubalr's source is under the GNU GENERAL PUBLIC LICENSE
+MoodFuse's source is under the GNU GENERAL PUBLIC LICENSE.
