@@ -2,7 +2,9 @@
 var Search = (function(){
 
 	var cls = function (name, items) {
-		var self = this,
+
+		var i,
+			self = this,
 			li = [];
 
 		self.name = name;
@@ -14,9 +16,11 @@ var Search = (function(){
 		self.elem.bind('keyup', function (e) { self.change(e); }); 
 
 		// create the lists with items provided
-		items.forEach(function (element, index) {
-			li.push('<li id="i-' + name + '-' + index + '">' + element + '</li>')
-		});
+
+		for (i = 0; i < items.length; i+=1) {
+			li.push('<li id="i-' + name + '-' + i + '">' + items[i] + '</li>')
+		}
+
 		self.list.empty().html(li.join(''));
 	};
 
@@ -82,9 +86,9 @@ var ytf = (function(){
 
 	var current_mood, current_style,
 		// this is the index of where to start pulling songs from echonest
-		index = 1;
+		index = 1,
 		playlist = [],
-		playing = false;
+		playing = false,
 		current = null,
 		total = 0, // how many videos are in the playlist
 		BLOCKED = false;
