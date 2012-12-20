@@ -1,0 +1,67 @@
+<%= render :partial => "/shared/header" %>
+
+<div id="content">
+	<div class="container">
+
+		<div class="info">
+			<h1>What are you in the mood for?</h1>
+			<p>Just pick your mood and the type of music you want to listen to, and we'll take care of the rest!</p>
+		</div>
+
+		<div class="picks">
+			<div id="mood">
+				<div class="fedago"><span>Your mood ...</span></div>
+
+				<div class="armani">
+					<input id="mood-search" type="text" placeholder="start typing in your mood" />
+					<ul>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+
+
+			<div id="style">
+				<div class="fedago"><span>Style of music ...</span></div>
+				
+				<div class="armani">
+					<input id="style-search" type="text" placeholder="start typing in the style of music" />
+					<ul>
+						<li></li>
+
+					</ul>
+				</div>
+			</div>
+
+			<div id="submit" title="Start listening">></div>
+			<div id="surprise" title="Surprise Me">?</div>
+		</div><!--picks-->
+
+		
+
+		<div class="clear"></div>
+
+
+		<div class="ppc">
+			<div id="spinner"></div>
+			<div id="player-container">
+				<div class="share">
+					<a id="share-twitter" href="" target="_blank">Tweet</a>
+					<a id="share-facebook" href="" target="_blank">Facebook</a>
+
+				</div>
+				<div id="player"></div>
+				<div class="controls">
+					<div id="next">next >></div>
+
+				</div>
+			</div>
+
+			<div id="playlist"></div>
+
+		</div>
+
+	</div><!--container-->
+</div><!--conenet-->
+
+<%= render :partial => "/shared/footer" %>
