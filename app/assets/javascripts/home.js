@@ -2,7 +2,7 @@
 var Search = (function(){
 
 	var cls = function (name, items) {
-		var self = this;
+		var self = this,
 			li = [];
 
 		self.name = name;
