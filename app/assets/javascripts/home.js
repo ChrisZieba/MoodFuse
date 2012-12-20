@@ -115,7 +115,8 @@ var ytf = (function(){
 
 		init: function () {
 			var mood = getParameterByName('mood'),
-				style = getParameterByName('style');
+				style = getParameterByName('style'),
+				target = document.getElementById('spinner');
 			
 
 			// if both query params are given than run the app
@@ -128,7 +129,7 @@ var ytf = (function(){
 					$('#mood .fedago').html(mood);
 					$('#style .fedago').html(style);
 
-					spinner.spin(document.getElementById('spinner'));
+					spinner.spin(target);
 
 					ytf.getResults(mood,style);
 				}
@@ -144,10 +145,12 @@ var ytf = (function(){
 			var eq, yq, 
 				results = 15;
 				plst = [],
+				target = document.getElementById('spinner'),
 				echonest = "http://developer.echonest.com/api/v4/song/search?";
 
 			if (!BLOCKED) {
-				spinner.spin(document.getElementById('spinner'));
+
+				spinner.spin(target);
 				
 				// now we cant submit again until the server returns
 				BLOCKED = true;
@@ -197,6 +200,7 @@ var ytf = (function(){
 								(function(song) {
 
 									var youtube = "https://gdata.youtube.com/feeds/api/videos?";
+									
 									yq = $.param({ 
 										"q": song.artist_name + "+" + song.title, 
 										"orderby": "relevance_lang_en",
