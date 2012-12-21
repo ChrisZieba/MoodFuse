@@ -325,18 +325,22 @@ var ytf = (function(){
 			// check if the player and playlist have been initialized
 			if (player && current) {
 				// get the next video by looking up the array index of the current video
-				var index = playlist.indexOf(current);
+				var indx = playlist.indexOf(current);
 
 				// indicate that a video is not playing
 				playing = false;
 
 				// checks that the video is not the last one in the playlist
-				if (index >=0 && index < total) {
-					ytf.play(playlist[index+1]);
-				} else {
-					// if we are at the end of the playlist generate some new results
-					ytf.refresh();
-				}
+				if (indx >=0 && (indx < total)) {
+					
+					// checks if there is another id in the playlist
+					if (playlist[indx+1]) {
+						ytf.play(playlist[indx+1]);
+					} else {
+						// get a new set of results
+						ytf.getResults(current_mood, current_style, true);
+					}
+				} 
 			}
 			
 		},
