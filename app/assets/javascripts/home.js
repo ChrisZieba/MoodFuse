@@ -333,6 +333,9 @@ var ytf = (function(){
 				// checks that the video is not the last one in the playlist
 				if (index >=0 && index < total) {
 					ytf.play(playlist[index+1]);
+				} else {
+					// if we are at the end of the playlist generate some new results
+					ytf.refresh();
 				}
 			}
 			
