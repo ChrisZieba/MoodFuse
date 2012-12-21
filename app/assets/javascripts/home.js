@@ -55,10 +55,13 @@ var Search = (function(){
 
 					for (i = 0; i < items.length; i+=1) {
 						id = "#i-" + name + "-" + i;
-						if ($.inArray(typed, items[i]) === -1)  { 
+
+						if(items[i].search(typed) === -1) {
 							$(id).addClass('zero');
 						} else {
-							$(id).removeClass('zero');
+							if ($(id).hasClass('zero')) {
+								$(id).removeClass('zero');
+							}
 						}
 					}
 
@@ -197,7 +200,7 @@ var ytf = (function(){
 							songs = echo.response.songs;
 
 						// checks if any songs were returned
-						if (songs) {
+						if (songs && songs.length > 0) {
 
 							// we need to know how many requests are made to so we can figure out when all the async requests are done
 							total = songs.length;
@@ -287,6 +290,8 @@ var ytf = (function(){
 							}
 
 						} else {
+							spinner.stop();
+							BLOCKED = false;
 							alert('Sorry, but we couldn\'t find any songs.');
 						}
 
@@ -444,7 +449,7 @@ $(document).ready(function () {
 				text: "I'm listenting to " + mood + " " + style + " on @MoodFuse " + www
 			});
 
-		window.open('https://twitter.com/share?' + link + '',"Share on Twitter","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
+		window.open('https://twitter.com/share?' + link,"Share","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
 		return false;
 
 	});
@@ -461,7 +466,7 @@ $(document).ready(function () {
 			});
 
 		//window.open('http://www.facebook.com/pages/MoodFuse/146675805480848',"Share on Facebook","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=800,height=600");
-		window.open('http://www.facebook.com/sharer.php?' + link + '',"Share on Facebook","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
+		window.open('http://www.facebook.com/sharer.php?' + link,"Share","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
 		return false;
 
 	});
