@@ -150,6 +150,8 @@ var ytf = (function(){
 
 			if (!BLOCKED) {
 
+				$.support.cors = true;
+				
 				spinner.spin(target);
 				
 				// now we cant submit again until the server returns
@@ -200,7 +202,7 @@ var ytf = (function(){
 								(function(song) {
 
 									var youtube = "https://gdata.youtube.com/feeds/api/videos?";
-									
+
 									yq = $.param({ 
 										"q": song.artist_name + "+" + song.title, 
 										"orderby": "relevance_lang_en",
