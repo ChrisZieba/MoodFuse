@@ -55,7 +55,7 @@ var Search = (function(){
 
 					for (i = 0; i < items.length; i+=1) {
 						id = "#i-" + name + "-" + i;
-						if (items[i].indexOf(typed) === -1)  {
+						if ($.inArray(typed, items[i]) === -1)  { 
 							$(id).addClass('zero');
 						} else {
 							$(id).removeClass('zero');
@@ -124,7 +124,7 @@ var ytf = (function(){
 			if (mood && style && !BLOCKED) {
 
 				// only search if the query parameters are valid enties
-				if (moods.indexOf(mood) >= 0 && styles.indexOf(style) >= 0) {
+				if ($.inArray(mood, moods) >= 0 && $.inArray(style, styles) >= 0) {
 
 					// update the dropdowns
 					$('#mood .fedago').html(mood);
@@ -325,7 +325,7 @@ var ytf = (function(){
 			// check if the player and playlist have been initialized
 			if (player && current) {
 				// get the next video by looking up the array index of the current video
-				var indx = playlist.indexOf(current);
+				var indx = $.inArray(current, playlist);
 
 				// indicate that a video is not playing
 				playing = false;
@@ -361,7 +361,7 @@ var ytf = (function(){
 
 
 					// checks if the song was returned more tha nonce from youtube or echonest
-					if (songs.indexOf(song) < 0 && playlist.indexOf(id) < 0) {
+					if ($.inArray(song, songs) < 0 && $.inArray(id, playlist) < 0) {
 						str.push('<div data-id="' + id + '" class="plist-itm">' + song + '</div>');
 						songs.push(song);
 						playlist.push(id);
