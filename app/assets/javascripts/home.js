@@ -87,6 +87,7 @@ var ytf = (function(){
 	var current_mood, current_style,
 		// this is the index of where to start pulling songs from echonest
 		index = 1,
+		results = 15,
 		playlist = [],
 		playing = false,
 		current = null,
@@ -143,45 +144,51 @@ var ytf = (function(){
 		getResults: function (mood, style, start_index) {
 
 			var eq, yq, 
-				results = 15;
 				plst = [],
 				target = document.getElementById('spinner'),
 				echonest = "http://developer.echonest.com/api/v4/song/search?";
 
+			// Only want to query results if ajax is currently not involved in a request
+			// This is mostly becuase EchoNest limits to 2 requests a minute, so we don't want to waste them if a user clicks the submit button repeatetly
 			if (!BLOCKED) {
 
+				// jquery support for cross domian scripting
 				$.support.cors = true;
-				
+
+				// show the ajax spinner
 				spinner.spin(target);
 				
 				// now we cant submit again until the server returns
 				BLOCKED = true;
 
+				// update the current selections
 				current_mood = mood;
 				current_style = style;
 
+				// set the index to start getting the next batch of songs
 				if (start_index) {
-					index = start_index;
+					index = index + results;
 				}
 
-
+				// encode the parameters
 				eq = $.param({ 
 					api_key: 'DFR40AUNFWISTMVBG', 
-					format: "json",
+					format: "jsonp",
 					start: index,
 					song_type: "studio",
 					song_min_hotttnesss: "0.25",
 					artist_min_hotttnesss: "0.25",
 					results: results,
-					mood: mood,
-					style: style
+					mood: current_mood,
+					style: current_style,
 				});
 
 
 				// get song list from echonest
 				$.ajax({
 					url: echonest,
-					dataType: 'json',
+					dataType: 'jsonp',
+					crossDomain: true,
 					data: eq,
 					success: function (echo) {
 						var i, 
@@ -210,25 +217,41 @@ var ytf = (function(){
 										"max-results": "1",
 										"v": "2",
 										"duration": "short",
+										"category": "Music",
 										"format": "5",
-										"alt": "jsonc"
+										"fields": "entry",
+										"alt": "json-in-script"
 									});
 
 									$.ajax({
 										url: youtube,
-										dataType: 'json',
+										dataType: 'jsonp',
+										crossDomain: true,
 										data: yq,
 										success: function (search_result) {
 
-											
-											if (search_result.data.items) {
+											var id, video,
+												entry = search_result.feed.entry;
+
+											if (entry) {
 												// only push the song onto the plst if youtube gave us result for it
-												if (search_result.data.items.length > 0) {
-													plst.push({
-														artist: song.artist_name,
-														title: song.title,
-														id: search_result.data.items[0].id
-													});
+												if (entry.length > 0) {
+
+													id = entry[0].id["$t"];
+
+													if (id) {
+
+														video = id.split(':');
+
+														if (video.length > 2) {
+															plst.push({
+																artist: song.artist_name,
+																title: song.title,
+																id: video[3]
+															});
+														}
+													}
+
 												}
 											}
 
@@ -254,6 +277,9 @@ var ytf = (function(){
 													alert('No videos found! Sorry about that.');
 												}
 											}
+										},
+										error: function (xhr, text, error) {
+											// Nothing to be done if a request to youtube comes back with an error
 										}
 									});
 
@@ -261,19 +287,25 @@ var ytf = (function(){
 							}
 
 						} else {
-							alert('no songs from echonest!');
+							alert('Sorry, but we couldn\'t find any songs.');
 						}
 
 
 
 					},
-					error : function () {
+					error : function (xht, text, error) {
 						spinner.stop();
 						BLOCKED = false;
+						alert("There was a problem retrieving songs from EchoNest.");
 					}
 				});
 			}
 
+		},
+
+		// get a new set of results for the current mood and style
+		refresh: function () {
+			ytf.getResults(current_mood, current_style, true)
 		},
 
 		play: function (id) {
@@ -337,6 +369,10 @@ var ytf = (function(){
 
 		getPlaylist: function () {
 			return playlist;
+		},
+
+		setIndex: function (ind) {
+			index = ind;
 		},
 
 		isVideoPlaying: function () {
@@ -408,7 +444,17 @@ $(document).ready(function () {
 
 	$('#share-facebook').click(function () {
 
-		window.open('http://www.facebook.com/pages/MoodFuse/146675805480848',"Share on Facebook","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=800,height=600");
+		http://www.facebook.com/sharer.php?u=URL-TO-SHARE-HERE"><img style="width:26px;height:26px;" src=".../facebook2.png"%>"/></a>
+		
+		var mood = $('#mood .fedago').html(),
+			style = $('#style .fedago').html(),
+			link = $.param({ 
+				u: "www.moodfuse.com?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style), 
+				text: "I'm listenting to " + mood + " " + style + " on MoodFuse"
+			});
+
+		//window.open('http://www.facebook.com/pages/MoodFuse/146675805480848',"Share on Facebook","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=800,height=600");
+		window.open('http://www.facebook.com/sharer.php?' + link + '',"Share on Facebook","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
 		return false;
 
 	});
@@ -436,6 +482,7 @@ $(document).ready(function () {
 
 		// make sure a mood and style are selected
 		if (mood.charAt(0) !== '<' && style.charAt(0) !== '<') {
+			ytf.setIndex(1);
 			ytf.getResults(mood,style);
 		} else {
 			alert('Choose your mood and pick a style - we\'ll handle the rest.');
@@ -448,6 +495,12 @@ $(document).ready(function () {
 		
 	});
 
+	$('#refresh').click(function () {
+		ytf.refresh();
+		
+	});
+
+
 	$('#surprise').click(function () {
 
 		var mood = moods[Math.floor(Math.random() * (moods.length + 1))];
@@ -459,7 +512,7 @@ $(document).ready(function () {
 			$('#style .fedago').html(style);
 		}
 
-
+		ytf.setIndex(1);
 		ytf.getResults(mood,style);
 
 

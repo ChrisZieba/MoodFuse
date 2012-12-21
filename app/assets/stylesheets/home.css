@@ -48,6 +48,7 @@
 #content {
 	float:left;
 	width:100%;
+	min-height: 350px;
 }
 iframe {
 	z-index: 100;
@@ -76,8 +77,9 @@ iframe {
 
 #share-twitter,
 #share-facebook,
-#favorite {
-	float:left;
+#favorite,
+#refresh 
+{
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	width:24px;
@@ -87,18 +89,26 @@ iframe {
 	cursor: pointer;
 }
 
+
 #share-facebook {
 	background-image: url("facebook.png");
+	float:left;
 }
 
 #share-twitter {
 	background-image: url("twitter.png");
+	float:left;
 }
 
 #favorite {
 	background-image: url("favorite.png");
+	float:left;
 }
 
+#refresh {
+	background-image: url("refresh.png");
+	float:right;
+}
 
 #mood, #style {
 	position:relative;
@@ -218,11 +228,19 @@ iframe {
 	visibility: hidden;
 }
 
+
+.playlist-container {
+	width:500px;
+	float:left;
+	margin-top:28px;
+}
+
 #playlist {
 	float:left;
-	width:500px;
-	margin-top:25px;
+	width:100%;
+
 }
+
 
 .plist-itm {
 	float:left;
@@ -277,7 +295,7 @@ iframe {
 	height:30px;
 	padding-top:10px;
 	font-size: 13px;
-	margin-top:150px;
+	margin-top:100px;
 
 }
 
