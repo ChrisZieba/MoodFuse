@@ -5,33 +5,19 @@
 
 		<div class="info">
 			<h1>What are you in the mood for?</h1>
-			<p>Just pick your mood and the type of music you want to listen to, and we'll take care of the rest!</p>
+			<p>Just pick a mood and a style to start listening to some great music!</p>
 		</div>
 
 		<div class="picks">
-			<div id="mood">
-				<div class="fedago"><span>Your mood ...</span></div>
 
-				<div class="armani">
-					<input id="mood-search" type="text" placeholder="start typing in your mood" />
-					<ul>
-						<li></li>
-					</ul>
-				</div>
-			</div>
+			<select id="mood">
+				<%= render :partial => "/shared/moods" %>
+			</select>
 
+			<select id="style">
+				<%= render :partial => "/shared/styles" %>
+			</select>
 
-			<div id="style">
-				<div class="fedago"><span>Style of music ...</span></div>
-				
-				<div class="armani">
-					<input id="style-search" type="text" placeholder="start typing in the style of music" />
-					<ul>
-						<li></li>
-
-					</ul>
-				</div>
-			</div>
 
 			<div id="submit" title="Start listening">></div>
 			<div id="surprise" title="Surprise Me">?</div>

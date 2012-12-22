@@ -37,6 +37,22 @@
 	-khtml-border-radius: 0 0 4px 4px;
 }
 
+.twitter-follow-button {
+	width:200px; 
+	height:20px;
+	border:none; 
+	overflow:hidden; 
+}
+
+.facebook-like-button {
+	width:80px; 
+	height:20px;
+	border:none; 
+	overflow:hidden; 
+
+}
+
+
 .container { 
 	position: relative;
 	width: 920px; 
@@ -45,12 +61,16 @@
 	display:block;
 }
 
+
 #content {
 	float:left;
 	width:100%;
 	min-height: 350px;
 }
+
 iframe {
+	width:372px;
+	height:279px;
 	z-index: 100;
 }
 
@@ -65,7 +85,7 @@ iframe {
 	font-size: 18px;
 	background-image: url("search.png");
 	background-repeat: no-repeat;
-	background-position: 97% 5px;
+	background-position: 97% 8px;
 }
 
 .share {
@@ -80,42 +100,62 @@ iframe {
 #favorite,
 #refresh 
 {
-	background-repeat: no-repeat;
-	background-position: 0 0;
 	width:24px;
 	height:24px;
 	text-indent: -9999px;
 	font-size: 0;
 	cursor: pointer;
+	background-image: url("sprite.png");
+	background-repeat: no-repeat;
 }
 
 
 #share-facebook {
-	background-image: url("facebook.png");
+	background-position: 0 0;
 	float:left;
 }
+
+#share-facebook:hover { background-position: 0 -24px; }
 
 #share-twitter {
-	background-image: url("twitter.png");
+	background-position: -96px 0;
 	float:left;
 }
 
-#favorite {
-	background-image: url("favorite.png");
-	float:left;
-}
+#share-twitter:hover { background-position: -96px -24px; }
 
 #refresh {
-	background-image: url("refresh.png");
+	background-position: -48px 0;
 	float:right;
 }
 
+#refresh:hover { background-position: -48px -24px; }
+
+
 #mood, #style {
-	position:relative;
-	width:372px;
 	float:left;
 	margin: 0 12px 10px 0;
+	outline: none;
+	position:relative;
+	width:370px;
+	height:48px;
+	color: #B9461A;
+	padding:6px 10px;
+	letter-spacing: 1px;
+	cursor: pointer;
+	background-color:white;
+	border: 0;
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none; 
+	overflow:hidden;
+	font-family: inherit;
+	font-size: 28px;
+	text-overflow: ellipsis;
+
 }
+
 
 #mood {
 	z-index: 201;
@@ -125,86 +165,28 @@ iframe {
 	z-index: 101;
 }
 
-.fedago {
-	position:relative;
-	width:340px;
-	height:42px;
-	color: #B9461A;
-	padding:6px 16px 0 16px;
-	letter-spacing: 1px;
-	font-size:32px;
-	cursor: pointer;
-	background-color:white;
-	background-image: url("drop.png");
-	background-repeat: no-repeat;
-	background-position: 340px 10px;
-
-	-moz-user-select: none; 
-	-khtml-user-select: none; 
-	-webkit-user-select: none; 
-	-o-user-select: none; 
-	overflow:hidden;
+#submit {
+	margin-right:10px;
+	background-position: 0 -72px;
 }
 
-.defago span {
-	color: #B9461A;
-}
-
-.armani {
-	width:340px;
-	position:absolute;
-	top:58px;
-	left:0;
-	display: none;
-	height:344px;
-	padding:12px 16px;
-	background: white;
-	-moz-user-select: none; 
-	-khtml-user-select: none; 
-	-webkit-user-select: none; 
-	-o-user-select: none; 
-}
-
-
-.armani ul {
-	float:left;
-	width:100%;
-	margin-top:5px;
-	height:300px;
-	max-height: 300px;
-	overflow-y: scroll;
-}
-
-.armani ul li {
-	float:left;
-	width:97%;
-	font-size: 32px;
-	line-height: 36px;
-	margin-bottom:5px;
-	padding:2px;
-	color:#B9461A;
-	cursor: pointer;
-	-moz-user-select: none; 
-	-khtml-user-select: none; 
-	-webkit-user-select: none; 
-	-o-user-select: none; 
-}
-
-.armani ul li:hover {
-	background:#B9461A;
-	color:white;
+#surprise {
+	background-position: -72px -72px;
 }
 
 #submit,
 #surprise {
 	color:white;
-	height:47px;
+	height:48px;
+	width:72px;
+	font-size:0;
+	text-indent: -9999px;
 	float:left;
 	font-size: 39px;
-	padding:1px 12px 0 12px;
-	margin-right:10px;
+	background-image: url("sprite.png");
+	background-repeat: no-repeat;
 	cursor: pointer;
-	background:#993007;
+	background-color:#993007;
 	font-weight: 900;
 	-moz-user-select: none; 
 	-khtml-user-select: none; 
@@ -213,7 +195,7 @@ iframe {
 }
 
 #submit:hover, #next:hover, #surprise:hover {
-	background: #702002;
+	background-color: #702002;
 }
 
 .plist-itm:hover {
@@ -295,8 +277,8 @@ iframe {
 
 
 #footer {
-	height:30px;
-	padding-top:10px;
+	height:40px;
+	padding:10px 0;
 	font-size: 13px;
 	margin-top:100px;
 
@@ -312,35 +294,87 @@ iframe {
 
 
 
-
+/*
 @media only screen and (min-width: 401px) and (max-width: 680px), only screen and (min-device-width: 401px) and (max-device-width: 680px) {
 
 
 
-}
+}*/
 
-@media only screen and (max-width: 400px), only screen and (max-device-width: 400px) {
+@media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {
+
+	h1 {
+		font-size: 32px;
+		line-height: 36px;
+	}
+
+	.twitter-follow-button {
+		width:133px; 
+	}
+
+	.facebook-like-button {
+		width:48px; 
+
+	}
 
 	.sliver {
-		min-width:386px;
+		min-width:320px;
 	}
 	.container {
-		width: 380px;
-		padding: 0 3px;
+		width: 300px;
+		padding: 0 10px;
 	}
 
 	.picks {
 		margin-bottom: 30px;
 	}
 
+	#player-container {
+
+		width: 300px;
+		height: 300px;
+	}
+
+	iframe {
+		width:300px;
+		height:225px;
+	}
+
+	.playlist-container {
+		width: 300px;
+		float:left;
+		margin-top:300px;
+	}
+
 	#playlist {
 		float: left;
-		width: 380px;
+		width: 300px;
 		margin-top: 15px;
 	}
 
+
 	.plist-itm {
-		width: 348px;
+		width: 300px;
+	}
+
+	.active {
+		background: #993007;
+		padding-left: 0;
+	}
+
+	#mood, #style {
+		position: relative;
+		width: 300px;
+	}
+
+	#submit {
+		width:145px;
+		background-position: 0 -120px;
+	}
+
+	#surprise {
+		width:145px;
+		background-position: -140px -120px;
 	}
 
 }

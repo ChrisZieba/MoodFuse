@@ -1,91 +1,6 @@
-// requires jQuery
-var Search = (function(){
-
-	var cls = function (name, items) {
-
-		var i,
-			self = this,
-			li = [];
-
-		self.name = name;
-		self.elem = $('#' + name);
-		self.list = $('#' + name).next('ul');
-		self.items = items;
-
-		// add event listeners
-		self.elem.bind('keyup', function (e) { self.change(e); }); 
-
-		// create the lists with items provided
-
-		for (i = 0; i < items.length; i+=1) {
-			li.push('<li id="i-' + name + '-' + i + '">' + items[i] + '</li>')
-		}
-
-		self.list.empty().html(li.join(''));
-	};
-
-	cls.prototype = {
-		change: function (e) {
-
-			var i, id, first,
-				self = this,
-				items = self.items,
-				name = self.name,
-				textbox = self.elem,
-				list = self.list,
-				typed = textbox.val(),
-				code = (e.keyCode ? e.keyCode : e.which);
-
-			// checks if the enter key wsas pressed
-			if (code === 13) {
-
-				// gets the first item in the list
-				first = list.children('li:not(.zero):first').html();
-
-				if (typed !== '' && first) {
-					
-					textbox.closest('.armani').prevAll('.fedago:first').html(first);
-					textbox.closest('.armani').hide();
-				} 
-				
-			} else {
-				// only do something if there is something typed
-				if (typed !== '') {
-					// remove irrelevent items from the list
-
-					for (i = 0; i < items.length; i+=1) {
-						id = "#i-" + name + "-" + i;
-
-						if(items[i].search(typed) === -1) {
-							$(id).addClass('zero');
-						} else {
-							if ($(id).hasClass('zero')) {
-								$(id).removeClass('zero');
-							}
-						}
-					}
-
-				} else {
-					for (i = 0; i < items.length; i+=1) {
-						id = "#i-" + name + "-" + i;
-						if ($(id).hasClass('zero')) {
-							$(id).removeClass('zero');
-						}
-					}
-				}
-			}
-
-		}
-	};
-
-	return cls;
-
-}());
-
-
 
 // Requires that the youtube playuer is defined
-var ytf = (function(){
+var ytf = (function($){
 
 	var current_mood, current_style,
 		// this is the index of where to start pulling songs from echonest
@@ -397,26 +312,19 @@ var ytf = (function(){
 		}
 	}
 
-}());
+}(jQuery));
 
 
 $(document).ready(function () {
 
-	// init the search features in the drop downs
-	var moody = new Search('mood-search', moods);
-	var stylish = new Search('style-search', styles);
 
-	// Hide the dropdowns when clicked outside of them
-	$(document).click(function(){
-		$('.armani').hide();
-	});
 
 	// Submit the data by pressing enter
 	$(document).keypress(function(e) {
 		var code = (e.keyCode ? e.keyCode : e.which);
 
-		// checks if the enter key wsas pressed, and the dropwn downs arwe hidden ,and there is not a video playing
-		if (code === 13 && !$('.armani').is(":visible") && !ytf.isVideoPlaying()) {
+		// checks if the enter key wsas pressed, and there is not a video playing
+		if (code === 13 && !ytf.isVideoPlaying()) {
 			// only submit the data if both drop downs are hidden
 			var mood = $.trim($('#mood .fedago').html());
 			var style = $.trim($('#style .fedago').html());
@@ -430,24 +338,15 @@ $(document).ready(function () {
 		}
 	});
 
-	// This prevents the click event from bubbling
-	$('#mood, #style').click(function(event){
-		event.stopPropagation();
-	});
 
-
-	$('.fedago').click(function () {
-		$(this).nextAll('.armani:first').toggle();
-	});
 
 	$('#share-twitter').click(function () {
 
 		var mood = $('#mood .fedago').html(),
 			style = $('#style .fedago').html(),
-			www = "www.moodfuse.com?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style),
+			www = "www.moodfuse.com/?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style),
 			link = $.param({ 
-				url: 'http://www.moodfuse.com', 
-				text: "I'm listenting to " + mood + " " + style + " on @MoodFuse " + www
+				text: "I'm listenting to " + mood + " " + style + " on @MoodFuse " + www,
 			});
 
 		window.open('https://twitter.com/share?' + link,"Share","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
@@ -490,15 +389,15 @@ $(document).ready(function () {
 
 	$("#submit").click(function () {
 		// only submit the data if both drop downs are hidden
-		var mood = $.trim($('#mood .fedago').html());
-		var style = $.trim($('#style .fedago').html());
+		var mood = $("#mood option:selected").text();
+		var style = $("#style option:selected").text();
 
 		// make sure a mood and style are selected
-		if (mood.charAt(0) !== '<' && style.charAt(0) !== '<') {
+		if (mood !== 'Your mood ...' && style !== 'Style of music ...') {
 			ytf.setIndex(1);
 			ytf.getResults(mood,style);
 		} else {
-			alert('Choose your mood and pick a style - we\'ll handle the rest.');
+			alert('Choose your mood and pick a style to start listening to music!');
 		}
 	});
 
@@ -516,21 +415,40 @@ $(document).ready(function () {
 
 	$('#surprise').click(function () {
 
-		var mood = moods[Math.floor(Math.random() * (moods.length + 1))];
-		var style = styles[Math.floor(Math.random() * (styles.length + 1))];
+		var mopts = $("#mood > option"),
+			sopts = $("#style > option"),
+			r1 = Math.floor(mopts.length * (Math.random() % 1)),
+			r2 = Math.floor(sopts.length * (Math.random() % 1));
 
 		// update the dropdowns
 		if (!ytf.isBlocked()) {
-			$('#mood .fedago').html(mood);
-			$('#style .fedago').html(style);
+			var sel1 = mopts.attr('selected',false).eq(r1);
+			sel1.attr('selected',true);
+
+			var sel2 = sopts.attr('selected',false).eq(r2);
+			sel2.attr('selected',true);
 		}
 
 		ytf.setIndex(1);
-		ytf.getResults(mood,style);
+		ytf.getResults(sel1.text(),sel2.text());
 
 
 
 		
 	});
+
+	$(window).resize(function() {
+		resize();
+	});
+
+	resize();
+
+
+	function resize () {
+		var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+		console.log(width);
+
+	}
+
 
 });
