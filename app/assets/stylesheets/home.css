@@ -1,16 +1,7 @@
 .clear { clear:both; }
 .invisible { display: none; }
 .hidden {visibility: hidden;}
-.zero {
-	height:0 !important;
-	line-height: 0 !important;
-	font-size: 0 !important;
-	padding-top:0 !important;
-	padding-bottom: 0 !important;
-	border:none !important;
-	margin-top:0 !important;
-	margin-bottom: 0 !important;
-}
+
 #header {
 	height:30px;
 	padding-top:5px;
@@ -72,20 +63,6 @@ iframe {
 	width:372px;
 	height:279px;
 	z-index: 100;
-}
-
-#mood-search, #style-search {
-	float:left;
-	width:94%;
-	height:26px;
-	border:1px solid #afafaf;
-	outline: none;
-	margin:0 0 5px 0;
-	padding:5px 10px;
-	font-size: 18px;
-	background-image: url("search.png");
-	background-repeat: no-repeat;
-	background-position: 97% 8px;
 }
 
 .share {
@@ -151,7 +128,7 @@ iframe {
 	-o-user-select: none; 
 	overflow:hidden;
 	font-family: inherit;
-	font-size: 28px;
+	font: 28px "Fredoka One", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-overflow: ellipsis;
 
 }

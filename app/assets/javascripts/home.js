@@ -437,18 +437,4 @@ $(document).ready(function () {
 		
 	});
 
-	$(window).resize(function() {
-		resize();
-	});
-
-	resize();
-
-
-	function resize () {
-		var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-		console.log(width);
-
-	}
-
-
 });
