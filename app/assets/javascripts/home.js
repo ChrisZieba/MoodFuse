@@ -223,7 +223,8 @@ var ytf = (function(){
 										"category": "Music",
 										"format": "5",
 										"fields": "entry",
-										"alt": "json-in-script"
+										"alt": "json-in-script",
+										"key": "AI39si40llauefY25o3BU3qy6wxiGHvhFdH8iJPurk0n8p5gplCkuC9kbgjNDI_00IpFHuGpDLZ9selALU8Rx2BqW1GoJ9j3lQ"
 									});
 
 									$.ajax({
