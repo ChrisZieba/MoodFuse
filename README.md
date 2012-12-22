@@ -3,9 +3,16 @@ MoodFuse
 
 A simple way to enjoy new music based on your mood!
 
+Requirements
+------------
+
+- Ruby 1.9.3+
+- Rails 3
+- sqlite
+
 Installing
 ----------
-1. Install Ruby on Rails
+
 1. Install bundler if you don't have it: gem install bundler
 1. Execute rake db:create
 

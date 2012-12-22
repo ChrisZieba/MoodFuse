@@ -33,30 +33,45 @@ var ytf = (function($){
 	return {
 
 		init: function () {
-			var mood = getParameterByName('mood'),
+			var i,j,
+				mood_found = false,
+				style_found = false,
+				mood = getParameterByName('mood'),
 				style = getParameterByName('style'),
-				target = document.getElementById('spinner');
+				target = document.getElementById('spinner'),
+				ddmood = document.getElementById('mood'),
+				ddstyle = document.getElementById('style');
 			
 
 			// if both query params are given than run the app
 			if (mood && style && !BLOCKED) {
 
+				// update the dropdowns
+
+				for (i = 0; i < ddmood.options.length; i+=1) {
+					if (ddmood.options[i].text === mood) {
+						mood_found = true;
+						ddmood.selectedIndex = i;
+						break;
+					}
+				}
+
+				for (j = 0; j < ddstyle.options.length; j+=1) {
+					if (ddstyle.options[j].text === style) {
+						style_found = true;
+						ddstyle.selectedIndex = j;
+						break;
+					}
+				}
+
 				// only search if the query parameters are valid enties
-				if ($.inArray(mood, moods) >= 0 && $.inArray(style, styles) >= 0) {
-
-					// update the dropdowns
-					$('#mood .fedago').html(mood);
-					$('#style .fedago').html(style);
-
+				if (mood_found && style_found) {
 					spinner.spin(target);
-
 					ytf.getResults(mood,style);
 				}
+				
 			}
 		},
-
-
-
 
 		// first grabs the songs list from echonest, than querys youtube a good video link ofr each son
 		getResults: function (mood, style, start_index) {
@@ -342,8 +357,8 @@ $(document).ready(function () {
 
 	$('#share-twitter').click(function () {
 
-		var mood = $('#mood .fedago').html(),
-			style = $('#style .fedago').html(),
+		var mood = $("#mood option:selected").text(),
+			style = $("#style option:selected").text(),
 			www = "www.moodfuse.com/?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style),
 			link = $.param({ 
 				text: "I'm listenting to " + mood + " " + style + " on @MoodFuse " + www,
@@ -358,8 +373,8 @@ $(document).ready(function () {
 
 		http://www.facebook.com/sharer.php?u=URL-TO-SHARE-HERE"><img style="width:26px;height:26px;" src=".../facebook2.png"%>"/></a>
 		
-		var mood = $('#mood .fedago').html(),
-			style = $('#style .fedago').html(),
+		var mood = $("#mood option:selected").text(),
+			style = $("#style option:selected").text(),
 			link = $.param({ 
 				u: "www.moodfuse.com?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style), 
 				text: "I'm listenting to " + mood + " " + style + " on MoodFuse"
