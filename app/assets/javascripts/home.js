@@ -271,7 +271,7 @@ var ytf = (function(){
 												// if the array is empty tha no youtube videos were found
 												if (plst && plst.length > 0) {
 
-													$('#player-container').css('visibility','visible');
+													$('#player-container').css('left','0');
 													ytf.buildPlaylist(plst);
 													ytf.play(plst[0].id);
 													

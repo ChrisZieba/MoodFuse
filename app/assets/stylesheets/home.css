@@ -114,14 +114,14 @@ iframe {
 	position:relative;
 	width:372px;
 	float:left;
-	margin: 0 10px 10px 0;
+	margin: 0 12px 10px 0;
 }
 
 #mood {
 	z-index: 201;
 }
 
-#mood {
+#style {
 	z-index: 101;
 }
 
@@ -202,7 +202,7 @@ iframe {
 	float:left;
 	font-size: 39px;
 	padding:1px 12px 0 12px;
-	margin-right:5px;
+	margin-right:10px;
 	cursor: pointer;
 	background:#993007;
 	font-weight: 900;
@@ -222,17 +222,19 @@ iframe {
 
 #player-container {
 	z-index: 100;
-	float:left;
+
 	width:372px;
-	margin-right:10px;
-	visibility: hidden;
+	height: 345px;
+
+	position:absolute;
+	left:-9999px;
 }
 
 
 .playlist-container {
 	width:500px;
-	float:left;
-	margin-top:28px;
+	float:right;
+	margin: 28px 38px 0 0;
 }
 
 #playlist {
@@ -288,6 +290,7 @@ iframe {
 	float:left;
 	width:100%;
 	min-height:350px;
+	position:relative;
 }
 
 
