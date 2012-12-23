@@ -336,16 +336,16 @@ $(document).ready(function () {
 
 	// Submit the data by pressing enter
 	$(document).keypress(function(e) {
-		var code = (e.keyCode ? e.keyCode : e.which);
+
+		var code = (e.keyCode ? e.keyCode : e.which),
+			mood = $("#mood option:selected").text(),
+			style = $("#style option:selected").text();
 
 		// checks if the enter key wsas pressed, and there is not a video playing
 		if (code === 13 && !ytf.isVideoPlaying()) {
-			// only submit the data if both drop downs are hidden
-			var mood = $.trim($('#mood .fedago').html());
-			var style = $.trim($('#style .fedago').html());
-
+			
 			// make sure a mood and style are selected
-			if (mood.charAt(0) !== '<' && style.charAt(0) !== '<') {
+			if (mood !== 'Your mood ...' && style !== 'Style of music ...') {
 				ytf.getResults(mood,style);
 			} else {
 				alert('Choose your mood and pick a style - we\'ll handle the rest.');
@@ -361,7 +361,7 @@ $(document).ready(function () {
 			style = $("#style option:selected").text(),
 			www = "www.moodfuse.com/?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style),
 			link = $.param({ 
-				text: "I'm listenting to " + mood + " " + style + " on @MoodFuse " + www,
+				text: "I'm listenting to " + mood + " " + style + " on @MoodFuse " + www
 			});
 
 		window.open('https://twitter.com/share?' + link,"Share","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
@@ -389,16 +389,6 @@ $(document).ready(function () {
 	$('.plist-itm').live('click', function () {
 		var video_id = $(this).data('id')
 		ytf.play(video_id);
-	});
-
-
-	$('.armani li').click(function () {
-		
-		var selected = $(this).html();
-
-		$(this).closest('.armani').prevAll('.fedago:first').html(selected);
-		$(this).closest('.armani').hide();
-
 	});
 
 
