@@ -470,10 +470,11 @@ $(document).ready(function () {
 
 			var sel2 = sopts.attr('selected',false).eq(r2);
 			sel2.attr('selected',true);
-		}
+		
 
-		ytf.setIndex(1);
-		ytf.getResults(sel1.text(),sel2.text());
+			ytf.setIndex(1);
+			ytf.getResults(sel1.text(),sel2.text());
+		}
 
 
 
