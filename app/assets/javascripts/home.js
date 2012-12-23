@@ -395,7 +395,7 @@ $(document).ready(function () {
 
 		FB.ui({
 			method: 'feed',
-			redirect_uri: "http://www.moodfuse.com",
+			//redirect_uri: "http://www.moodfuse.com",
 			link: "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+'),
 			picture: "http://www.moodfuse.com/assets/facebook75.png",
 			name: "I'm listenting to " + mood + " " + style + " on MoodFuse!",

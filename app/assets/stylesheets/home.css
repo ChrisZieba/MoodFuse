@@ -191,9 +191,9 @@ iframe {
 
 
 .playlist-container {
-	width:500px;
+	width:540px;
 	float:right;
-	margin: 28px 38px 0 0;
+	margin: 28px 0 0 0;
 }
 
 #playlist {
@@ -205,7 +205,7 @@ iframe {
 
 .plist-itm {
 	float:left;
-	width:450px;
+	width:538px;
 	margin-bottom:1px;
 	padding:1px;
 	cursor: pointer;
@@ -219,6 +219,7 @@ iframe {
 	background:#993007 url("play.png") no-repeat 1px 1px;
 	padding-left:25px;
 	color:#f5b49b;
+	width:512px;
 }
 
 .controls {
@@ -271,12 +272,7 @@ iframe {
 
 
 
-/*
-@media only screen and (min-width: 401px) and (max-width: 680px), only screen and (min-device-width: 401px) and (max-device-width: 680px) {
 
-
-
-}*/
 
 @media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {
 
@@ -331,12 +327,7 @@ iframe {
 
 
 	.plist-itm {
-		width: 300px;
-	}
-
-	.active {
-		background: #993007;
-		padding-left: 0;
+		width: 275px;
 	}
 
 	#mood, #style {
@@ -351,7 +342,128 @@ iframe {
 
 	#surprise {
 		width:145px;
-		background-position: -140px -120px;
+		background-position: -145px -120px;
 	}
+
+}
+
+
+@media only screen and (min-width: 321px) and (max-width: 639px), only screen and (min-device-width: 321px) and (max-device-width: 639px) {
+
+	h1 {
+		font-size: 38px;
+		line-height: 44px;
+	}
+
+	.sliver {
+		min-width:480px;
+	}
+	.container {
+		width: 460px;
+		padding: 0 10px;
+	}
+
+	.picks {
+		margin-bottom: 30px;
+	}
+
+	#player-container {
+
+		width: 460px;
+		height: 320px;
+	}
+
+	iframe {
+		width:460px;
+		height:248px;
+	}
+
+	.playlist-container {
+		width: 460px;
+		float:left;
+		margin-top:320px;
+	}
+
+	#playlist {
+		float: left;
+		width: 460px;
+		margin-top: 15px;
+	}
+
+
+	.plist-itm {
+		width: 435px;
+	}
+
+	#mood, #style {
+		position: relative;
+		width: 460px;
+	}
+
+	#submit {
+		width:225px;
+		background-position: 0 -168px;
+	}
+
+	#surprise {
+		width:225px;
+		background-position: -225px -168px;
+	}
+
+}
+
+
+@media only screen and (min-width: 640px) and (max-width: 959px), only screen and (min-device-width: 640px) and (max-device-width: 959px) {
+
+	h1 {
+		font-size: 44px;
+		line-height: 50px;
+	}
+
+	.sliver {
+		min-width:768px;
+	}
+	.container {
+		width: 748px;
+		padding: 0 20px;
+	}
+
+	.picks {
+		margin-bottom: 30px;
+	}
+
+	#player-container {
+
+		width: 570px;
+		height: 500px;
+	}
+
+	iframe {
+		width:570px;
+		height:428px;
+	}
+
+	.playlist-container {
+		width: 570px;
+		float:left;
+		margin-top:500px;
+	}
+
+	#playlist {
+		float: left;
+		width: 570px;
+		margin-top: 15px;
+	}
+
+
+	.plist-itm {
+		width: 545px;
+	}
+
+	#mood, #style {
+		position: relative;
+		width: 280px;
+	}
+
 
 }
