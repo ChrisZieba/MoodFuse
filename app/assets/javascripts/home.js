@@ -390,8 +390,14 @@ $(document).ready(function () {
 			style = $("#style option:selected").text();
 
 		var link = $.param({ 
-				text: "I'm listenting to " + mood + " " + style + " on MoodFuse",
-				u: "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+')
+				app_id: "137698956385466",
+				redirect_uri: "http://www.moodfuse.com",
+				picture: "http://www.moodfuse.com/assets/facebook75.png",
+				name: "I'm listenting to " + mood + " " + style + " on MoodFuse",
+				display: "popup",
+				caption: "Moodfuse lets you effortlessly find music based on your mood.",
+				//description: "I'm listenting to " + mood + " " + style + " on MoodFuse",
+				link: "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+')
 			});
 
 		var opts = 'status=1' +
@@ -407,7 +413,7 @@ $(document).ready(function () {
 				',left=' + Math.floor(($(window).width()  - 575)  / 2
 			);
 
-		window.open('https://www.facebook.com/sharer.php?' + link, "Share", opts);
+		window.open('https://www.facebook.com/dialog/feed?' + link, "Share", opts);
 		return false;
 
 	});
