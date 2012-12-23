@@ -5,15 +5,10 @@ class HomeController < ApplicationController
 	def index
 	end
 
-	def search
-		mood = params[:mood]
-		style = params[:style]
-
-		render :json => getVideos(mood, style)
+	def privacy
 	end
 
 	def about
-
 	end
 	
 

@@ -343,7 +343,7 @@ $(document).ready(function () {
 
 		// checks if the enter key wsas pressed, and there is not a video playing
 		if (code === 13 && !ytf.isVideoPlaying()) {
-			
+
 			// make sure a mood and style are selected
 			if (mood !== 'Your mood ...' && style !== 'Style of music ...') {
 				ytf.getResults(mood,style);
@@ -358,30 +358,56 @@ $(document).ready(function () {
 	$('#share-twitter').click(function () {
 
 		var mood = $("#mood option:selected").text(),
-			style = $("#style option:selected").text(),
-			www = "www.moodfuse.com/?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style),
-			link = $.param({ 
-				text: "I'm listenting to " + mood + " " + style + " on @MoodFuse " + www
+			style = $("#style option:selected").text();
+
+		var link = $.param({ 
+				text: "I'm listenting to " + mood + " " + style + " via @MoodFuse",
+				url: "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+')
 			});
 
-		window.open('https://twitter.com/share?' + link,"Share","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
+		var opts = 'status=1' +
+				',width=575' +
+				',height=375' +
+				',toolbar=no' +
+				',location=no' +
+				',status=no' +
+				',menubar=no' +
+				',scrollbars=no' +
+				',resizeable=yes' +
+				',top=' + Math.floor(($(window).height() - 400)  / 2)  +
+				',left=' + Math.floor(($(window).width()  - 575)  / 2
+			);
+
+
+		window.open("https://twitter.com/share?" + link, "Share", opts);
 		return false;
 
 	});
 
 	$('#share-facebook').click(function () {
 
-		http://www.facebook.com/sharer.php?u=URL-TO-SHARE-HERE"><img style="width:26px;height:26px;" src=".../facebook2.png"%>"/></a>
-		
 		var mood = $("#mood option:selected").text(),
-			style = $("#style option:selected").text(),
-			link = $.param({ 
-				u: "www.moodfuse.com?mood=" + encodeURIComponent(mood) + "&style=" + encodeURIComponent(style), 
-				text: "I'm listenting to " + mood + " " + style + " on MoodFuse"
+			style = $("#style option:selected").text();
+
+		var link = $.param({ 
+				text: "I'm listenting to " + mood + " " + style + " on MoodFuse",
+				u: "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+')
 			});
 
-		//window.open('http://www.facebook.com/pages/MoodFuse/146675805480848',"Share on Facebook","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=800,height=600");
-		window.open('http://www.facebook.com/sharer.php?' + link,"Share","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=320");
+		var opts = 'status=1' +
+				',width=575' +
+				',height=375' +
+				',toolbar=no' +
+				',location=no' +
+				',status=no' +
+				',menubar=no' +
+				',scrollbars=no' +
+				',resizeable=yes' +
+				',top=' + Math.floor(($(window).height() - 400)  / 2)  +
+				',left=' + Math.floor(($(window).width()  - 575)  / 2
+			);
+
+		window.open('https://www.facebook.com/sharer.php?' + link, "Share", opts);
 		return false;
 
 	});
