@@ -1,3 +1,14 @@
+.fredoka {
+	font-family: "Fredoka One", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.strong {
+	font-weight: 700;
+}
+
+.italic {
+	font-style: italic;
+}
+
 .clear { clear:both; }
 .invisible { display: none; }
 .hidden {visibility: hidden;}
@@ -7,6 +18,10 @@
 	padding-top:5px;
 	margin-bottom:100px;
 
+}
+
+#optstyles {
+	display: none;
 }
 
 .sliver {
@@ -19,13 +34,14 @@
 
 #header .social {
 	float:right;
-	margin:-8px 3px 0 0;
+	margin:-8px 0 0 0;
 	background:#F28333;
-	padding: 4px 4px 2px 6px;
+	padding: 4px 4px 4px 6px;
 	-moz-border-radius: 0 0 4px 4px;
 	-webkit-border-radius: 0 0 4px 4px;
 	border-radius: 0 0 4px 4px;
 	-khtml-border-radius: 0 0 4px 4px;
+	-o-border-radius: 0 0 4px 4px;
 }
 
 .twitter-follow-button {
@@ -56,7 +72,7 @@
 #content {
 	float:left;
 	width:100%;
-	min-height: 350px;
+	min-height: 400px;
 }
 
 iframe {
@@ -130,7 +146,11 @@ iframe {
 	font-family: inherit;
 	font: 28px "Fredoka One", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-overflow: ellipsis;
-
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+	-khtml-border-radius: 4px 4px 4px 4px;
+	-o-border-radius: 4px 4px 4px 4px;
 }
 
 
@@ -145,30 +165,34 @@ iframe {
 #submit {
 	margin-right:10px;
 	background-position: 0 -72px;
+	width:58px;
 }
 
 #surprise {
 	background-position: -72px -72px;
+	width:88px;
 }
 
 #submit,
 #surprise {
 	color:white;
 	height:48px;
-	width:72px;
 	font-size:0;
 	text-indent: -9999px;
 	float:left;
-	font-size: 39px;
 	background-image: url("sprite.png");
 	background-repeat: no-repeat;
 	cursor: pointer;
 	background-color:#993007;
-	font-weight: 900;
+	font-weight: 700;
 	-moz-user-select: none; 
 	-khtml-user-select: none; 
 	-webkit-user-select: none; 
 	-o-user-select: none; 
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+	-khtml-border-radius: 4px 4px 4px 4px;
 }
 
 #submit:hover, #next:hover, #surprise:hover {
@@ -207,12 +231,17 @@ iframe {
 	float:left;
 	width:538px;
 	margin-bottom:1px;
-	padding:1px;
+	padding:3px 1px 3px 1px;
 	cursor: pointer;
+	font-size: 20px;
 	-moz-user-select: none; 
 	-khtml-user-select: none; 
 	-webkit-user-select: none; 
 	-o-user-select: none; 
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+	-khtml-border-radius: 4px 4px 4px 4px;
 }
 
 .active {
@@ -231,13 +260,17 @@ iframe {
 	padding: 5px 10px;
 	background:#993007;
 	cursor: pointer;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+	-khtml-border-radius: 4px 4px 4px 4px;
 }
 
 .picks {
 
 	float:left;
 	width:100%;
-	margin-bottom:100px;
+	margin-bottom:50px;
 }
 .info {
 
@@ -279,6 +312,11 @@ iframe {
 	h1 {
 		font-size: 32px;
 		line-height: 36px;
+	}
+
+	p { 
+		font-size:16px; 
+		line-height:20px;
 	}
 
 	.twitter-follow-button {

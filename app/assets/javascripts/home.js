@@ -5,12 +5,14 @@ var ytf = (function($){
 	var current_mood, current_style,
 		// this is the index of where to start pulling songs from echonest
 		index = 1,
-		results = 15,
+		results = 25,
 		playlist = [],
-		playing = false,
+		PLAYING = false,
 		current = null,
 		total = 0, // how many videos are in the playlist
-		BLOCKED = false;
+		BLOCKED = false,
+		// the default title
+		title = document.title;
 
 	var getParameterByName = function (name) {
 
@@ -76,7 +78,8 @@ var ytf = (function($){
 		// first grabs the songs list from echonest, than querys youtube a good video link ofr each son
 		getResults: function (mood, style, start_index) {
 
-			var eq, yq, 
+			var eq, yq,
+				params = {},
 				plst = [],
 				target = document.getElementById('spinner'),
 				echonest = "http://developer.echonest.com/api/v4/song/search?";
@@ -103,18 +106,35 @@ var ytf = (function($){
 					index = index + results;
 				}
 
-				// encode the parameters
-				eq = $.param({ 
+				// these are the default paramters
+				params = {
 					api_key: 'DFR40AUNFWISTMVBG', 
 					format: "jsonp",
 					start: index,
 					song_type: "studio",
-					song_min_hotttnesss: "0.25",
-					artist_min_hotttnesss: "0.25",
+					rank_type: "relevance",
+					sort: "song_hotttnesss-desc",
 					results: results,
-					mood: current_mood,
-					style: current_style,
-				});
+				};
+
+				if (mood && style) {
+					params.song_min_hotttnesss = "0.25";
+					params.artist_min_hotttnesss = "0.25";
+					params.mood = current_mood;
+					params.style = current_style + '^1.2';
+				} else if (mood && !style) {
+					params.song_min_hotttnesss = "0.35";
+					params.artist_min_hotttnesss = "0.35";
+					params.mood = current_mood;
+				} else if (!mood && style) {
+					params.song_min_hotttnesss = "0.25";
+					params.artist_min_hotttnesss = "0.25";
+					params.style = current_style;
+				} 
+
+
+				// encode the parameters
+				eq = $.param(params);
 
 
 				// get song list from echonest
@@ -246,14 +266,29 @@ var ytf = (function($){
 
 		play: function (id) {
 			if (player) {
-				player.loadVideoById(id);
+
+				PLAYING = true;
 				current = id;
-				playing = true;
+
+				// load the video
+				player.loadVideoById(id);
 
 				// find the playlist item and add the class for the background and the background 
 				$('.plist-itm').removeClass("active");
 				$("#playlist").find("[data-id='" + id + "']").addClass('active');
 			}
+			
+		},
+
+		setPageTitle: function (data) {
+
+			// if the string is not supplied just set it to the default
+			if (data === 1) {
+				document.title = ' ▸ ' + $("#playlist").find("[data-id='" + current + "']").text();
+			} else {
+				document.title = title;
+			}
+
 			
 		},
 		next: function () {
@@ -263,8 +298,8 @@ var ytf = (function($){
 				// get the next video by looking up the array index of the current video
 				var indx = $.inArray(current, playlist);
 
-				// indicate that a video is not playing
-				playing = false;
+				// indicate that a video is not PLAYING
+				PLAYING = false;
 
 				// checks that the video is not the last one in the playlist
 				if (indx >=0 && (indx < total)) {
@@ -292,7 +327,7 @@ var ytf = (function($){
 			if (res) {
 				for (var i = 0; i < res.length; i+=1) {
 
-					var song = res[i].artist.toUpperCase() + ' - ' + res[i].title;
+					var song = '<span class="strong">' + res[i].artist + '</span> - ' + res[i].title;
 					var id = res[i].id;
 
 
@@ -319,7 +354,7 @@ var ytf = (function($){
 		},
 
 		isVideoPlaying: function () {
-			return playing;
+			return PLAYING;
 		},
 
 		isBlocked: function () {
@@ -333,7 +368,6 @@ var ytf = (function($){
 $(document).ready(function () {
 
 
-
 	// Submit the data by pressing enter
 	$(document).keypress(function(e) {
 
@@ -345,10 +379,10 @@ $(document).ready(function () {
 		if (code === 13 && !ytf.isVideoPlaying()) {
 
 			// make sure a mood and style are selected
-			if (mood !== 'Your mood ...' && style !== 'Style of music ...') {
+			if (mood !== 'Mood ...' && style !== 'Genre ...') {
 				ytf.getResults(mood,style);
 			} else {
-				alert('Choose your mood and pick a style - we\'ll handle the rest.');
+				alert('Choose Mood ... pick a style - we\'ll handle the rest.');
 			}
 		}
 	});
@@ -404,23 +438,6 @@ $(document).ready(function () {
 		}, function () {
 
 		});
-	  
-
-		var opts = 'status=1' +
-				',width=575' +
-				',height=375' +
-				',toolbar=no' +
-				',location=no' +
-				',status=no' +
-				',menubar=no' +
-				',scrollbars=no' +
-				',resizeable=yes' +
-				',top=' + Math.floor(($(window).height() - 400)  / 2)  +
-				',left=' + Math.floor(($(window).width()  - 575)  / 2
-			);
-
-		window.open('https://www.facebook.com/dialog/feed?' + link, "Share", opts);
-		return false;
 
 	});
 
@@ -432,15 +449,29 @@ $(document).ready(function () {
 
 	$("#submit").click(function () {
 		// only submit the data if both drop downs are hidden
-		var mood = $("#mood option:selected").text();
-		var style = $("#style option:selected").text();
 
-		// make sure a mood and style are selected
-		if (mood !== 'Your mood ...' && style !== 'Style of music ...') {
+		var mood =  $("#mood option:selected").text(),
+			style = $("#style option:selected").text();
+
+		// if the mood is not the default grab what is selected
+		if (mood === 'Mood ...') {
+			mood = null;
+		}
+
+		// if the style is not the default grab what is selected
+		if (style === 'Genre ...') {
+			style = null;
+		}
+
+
+		// make sure at least one item is selected
+		if (!mood && !style) {
+			alert('Choose at least one item to start listening to music!');
+
+		} else {
+			// this resets the iondex at where echonest starts returning results from , the begingging
 			ytf.setIndex(1);
 			ytf.getResults(mood,style);
-		} else {
-			alert('Choose your mood and pick a style to start listening to music!');
 		}
 	});
 

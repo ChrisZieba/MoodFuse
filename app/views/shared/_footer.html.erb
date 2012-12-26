@@ -3,7 +3,7 @@
 
 <div id="footer">
 	<div class="container">
-		<span>&#169; 2012 MoodFuse <a href="/about">About</a></span>
+		<span>&#169; 2012 <span class="fredoka">MoodFuse</span> <a href="/about">About</a></span>
 		<div class="shouts">
 			<a href="http://www.echonest.com"><img src="/assets/echonest.png" alt="EchoNest" title="EchoNest" /></a>
 		</div>
@@ -55,9 +55,12 @@
 					ytf.init();
 				},
 				'onStateChange': function (event) {
+
+					ytf.setPageTitle(event.data);
+
 					if (event.data == YT.PlayerState.ENDED) {
 						ytf.next();
-					}
+					} 
 				}
 			}
 		});

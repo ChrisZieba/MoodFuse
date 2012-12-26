@@ -5,17 +5,19 @@
 
 		<div class="info">
 			<h1>What are you in the mood for?</h1>
-			<p>Just pick a mood and a style to start listening to some great music!</p>
+			<p>Just pick a mood, genre, <span class="strong">both</span> to start listening to some great music! If your feeling spontaneous just click the <span class="italic">"random"</span> button and we'll do our best to get you a great playlist!</p>
 		</div>
 
 		<div class="picks">
+
+			<div class="div"></div>
 
 			<select id="mood">
 				<%= render :partial => "/shared/moods" %>
 			</select>
 
 			<select id="style">
-				<%= render :partial => "/shared/styles" %>
+				<%= render :partial => "/shared/short_styles" %>
 			</select>
 
 
@@ -40,7 +42,7 @@
 				</div>
 				<div id="player"></div>
 				<div class="controls">
-					<div id="next">next >></div>
+					<div id="next" class="fredoka">next >></div>
 
 				</div>
 			</div>
