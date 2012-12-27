@@ -391,15 +391,40 @@ $(document).ready(function () {
 
 	$('#share-twitter').click(function () {
 
-		var mood = $("#mood option:selected").text(),
+		var text, url, link, opts,
+			mood = $("#mood option:selected").text(),
 			style = $("#style option:selected").text();
 
-		var link = $.param({ 
-				text: "I'm listenting to " + mood + " " + style + " via @MoodFuse",
-				url: "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+')
+
+		// if the mood is not the default grab what is selected
+		if (mood === 'Mood ...') {
+			mood = null;
+		}
+
+		// if the style is not the default grab what is selected
+		if (style === 'Genre ...') {
+			style = null;
+		}
+
+
+		if (!mood && style) {
+			text = "I'm listenting to " + style + " music via @MoodFuse";
+			url = "http://www.moodfuse.com/?style=" + style.split(' ').join('+')
+		} else if (mood && !style) {
+			text = "I'm listenting to " + mood + " music via @MoodFuse";
+			url = "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+');
+		} else {
+			text = "I'm listenting to " + mood + " " + style + " via @MoodFuse";
+			url = "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+');
+		}
+
+
+		link = $.param({ 
+				text: text,
+				url: url
 			});
 
-		var opts = 'status=1' +
+		opts = 'status=1' +
 				',width=575' +
 				',height=375' +
 				',toolbar=no' +
@@ -420,20 +445,43 @@ $(document).ready(function () {
 
 	$('#share-facebook').click(function () {
 
-		
-
-		var mood = $("#mood option:selected").text(),
+		var link, name,
+			mood = $("#mood option:selected").text(),
 			style = $("#style option:selected").text();
+
+		// if the mood is not the default grab what is selected
+		if (mood === 'Mood ...') {
+			mood = null;
+		}
+
+		// if the style is not the default grab what is selected
+		if (style === 'Genre ...') {
+			style = null;
+		}
+
+
+		if (!mood && style) {
+			name = "I'm listenting to " + style + " music on MoodFuse!";
+			link = "http://www.moodfuse.com/?style=" + style.split(' ').join('+')
+		} else if (mood && !style) {
+			name = "I'm listenting to " + mood + " music on MoodFuse!";
+			link = "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+');
+		} else {
+			name = "I'm listenting to " + mood + " " + style + " on MoodFuse!";
+			link = "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+');
+		}
+
 
 		FB.init({appId: "137698956385466", status: true, cookie: true});
 
 		FB.ui({
 			method: 'feed',
 			//redirect_uri: "http://www.moodfuse.com",
-			link: "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+'),
+			link: link,
 			picture: "http://www.moodfuse.com/assets/facebook75.png",
-			name: "I'm listenting to " + mood + " " + style + " on MoodFuse!",
-			caption: "Moodfuse lets you effortlessly find music based on your mood.",
+			name: name,
+			caption: "Let us get you in the mood!",
+			description: 'Moodfuse lets you effortlessly find music based on your mood, genre, or both.',
 			display: "popup"
 		}, function () {
 
@@ -489,22 +537,19 @@ $(document).ready(function () {
 
 	$('#surprise').click(function () {
 
-		var mopts = $("#mood > option"),
-			sopts = $("#style > option"),
-			r1 = Math.floor(mopts.length * (Math.random() % 1)),
-			r2 = Math.floor(sopts.length * (Math.random() % 1));
+		var mood = document.getElementById("mood"),
+			style = document.getElementById("style"),
+			r1 = Math.floor(mood.options.length * (Math.random() % 1)),
+			r2 = Math.floor(style.options.length * (Math.random() % 1));
 
 		// update the dropdowns
 		if (!ytf.isBlocked()) {
-			var sel1 = mopts.attr('selected',false).eq(r1);
-			sel1.attr('selected',true);
-
-			var sel2 = sopts.attr('selected',false).eq(r2);
-			sel2.attr('selected',true);
+			mood.selectedIndex = r1;
+			style.selectedIndex = r2;
 		
 
 			ytf.setIndex(1);
-			ytf.getResults(sel1.text(),sel2.text());
+			ytf.getResults(mood.options[r1].text,style.options[r2].text);
 		}
 
 

@@ -389,10 +389,15 @@ iframe {
 @media only screen and (min-width: 321px) and (max-width: 639px), only screen and (min-device-width: 321px) and (max-device-width: 639px) {
 
 	h1 {
-		font-size: 38px;
-		line-height: 44px;
+		font-size: 30px;
+		line-height: 36px;
 	}
 
+	p { 
+		font-size:16px; 
+		line-height:20px;
+	}
+	
 	.sliver {
 		min-width:480px;
 	}
