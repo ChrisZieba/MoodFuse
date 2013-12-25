@@ -1,11 +1,10 @@
-
 // Requires that the youtube playuer is defined
 var ytf = (function($){
 
 	var current_mood, current_style,
 		// this is the index of where to start pulling songs from echonest
 		index = 1,
-		results = 25,
+		results = 15,
 		playlist = [],
 		PLAYING = false,
 		current = null,
@@ -15,7 +14,6 @@ var ytf = (function($){
 		title = document.title;
 
 	var getParameterByName = function (name) {
-
 		var s, regex, results;
 
 		name = name.replace(/[\[]/, "\\\\[").replace(/[\]]/, "\\\\]");
@@ -24,19 +22,15 @@ var ytf = (function($){
 		results = regex.exec(window.location.search);
 
 		if (results === null) {
-			return "";
+			return null;
 		} 
 
-		return decodeURIComponent(results[1].replace(/\+/g, " "));
-		
-			
+		return decodeURIComponent(results[1].replace(/\+/g, " "));	
 	};
 
 	return {
-
 		init: function () {
-			var i,j,
-				mood_found = false,
+			var mood_found = false,
 				style_found = false,
 				mood = getParameterByName('mood'),
 				style = getParameterByName('style'),
@@ -44,30 +38,31 @@ var ytf = (function($){
 				ddmood = document.getElementById('mood'),
 				ddstyle = document.getElementById('style');
 			
-
 			// if both query params are given than run the app
-			if (mood && style && !BLOCKED) {
-
+			if (!BLOCKED) {
 				// update the dropdowns
-
-				for (i = 0; i < ddmood.options.length; i+=1) {
-					if (ddmood.options[i].text === mood) {
-						mood_found = true;
-						ddmood.selectedIndex = i;
-						break;
+				if (mood) {
+					for (var i = 0; i < ddmood.options.length; i+=1) {
+						if (ddmood.options[i].text === mood) {
+							mood_found = true;
+							ddmood.selectedIndex = i;
+							break;
+						}
 					}
 				}
 
-				for (j = 0; j < ddstyle.options.length; j+=1) {
-					if (ddstyle.options[j].text === style) {
-						style_found = true;
-						ddstyle.selectedIndex = j;
-						break;
+				if (style) {
+					for (var j = 0; j < ddstyle.options.length; j+=1) {
+						if (ddstyle.options[j].text === style) {
+							style_found = true;
+							ddstyle.selectedIndex = j;
+							break;
+						}
 					}
 				}
 
 				// only search if the query parameters are valid enties
-				if (mood_found && style_found) {
+				if (mood_found || style_found) {
 					spinner.spin(target);
 					ytf.getResults(mood,style);
 				}
@@ -77,7 +72,6 @@ var ytf = (function($){
 
 		// first grabs the songs list from echonest, than querys youtube a good video link ofr each son
 		getResults: function (mood, style, start_index) {
-
 			var eq, yq,
 				params = {},
 				plst = [],
@@ -87,7 +81,6 @@ var ytf = (function($){
 			// Only want to query results if ajax is currently not involved in a request
 			// This is mostly becuase EchoNest limits to 2 requests a minute, so we don't want to waste them if a user clicks the submit button repeatetly
 			if (!BLOCKED) {
-
 				// jquery support for cross domian scripting
 				$.support.cors = true;
 
@@ -118,20 +111,19 @@ var ytf = (function($){
 				};
 
 				if (mood && style) {
-					params.song_min_hotttnesss = "0.25";
+					params.song_min_hotttnesss = "0.15";
 					params.artist_min_hotttnesss = "0.25";
 					params.mood = current_mood;
-					params.style = current_style + '^1.2';
+					params.style = current_style + '^1.5';
 				} else if (mood && !style) {
-					params.song_min_hotttnesss = "0.35";
-					params.artist_min_hotttnesss = "0.35";
+					//params.song_min_hotttnesss = "0.15";
+					params.artist_min_hotttnesss = "0.15";
 					params.mood = current_mood;
 				} else if (!mood && style) {
-					params.song_min_hotttnesss = "0.25";
-					params.artist_min_hotttnesss = "0.25";
+					//params.song_min_hotttnesss = "0.15";
+					params.artist_min_hotttnesss = "0.15";
 					params.style = current_style;
 				} 
-
 
 				// encode the parameters
 				eq = $.param(params);
@@ -144,32 +136,26 @@ var ytf = (function($){
 					crossDomain: true,
 					data: eq,
 					success: function (echo) {
-						var i, 
-							total = 0,
+						var total = 0,
 							requests = 0, 
 							songs = echo.response.songs;
 
 						// checks if any songs were returned
 						if (songs && songs.length > 0) {
-
 							// we need to know how many requests are made to so we can figure out when all the async requests are done
 							total = songs.length;
-
 							// go through every song and look it up on youtube
-							for (i = 0; i < songs.length; i +=1) {
-
-
+							for (var i = 0; i < songs.length; i +=1) {
 								(function(song) {
-
 									var youtube = "https://gdata.youtube.com/feeds/api/videos?";
 
 									yq = $.param({ 
 										"q": song.artist_name + "+" + song.title, 
-										"orderby": "relevance_lang_en",
+										"orderby": "relevance",
 										"start-index": "1",
-										"max-results": "1",
+										"max-results": "10",
 										"v": "2",
-										"duration": "short",
+										//"duration": "short",
 										"category": "Music",
 										"format": "5",
 										"fields": "entry",
@@ -183,18 +169,15 @@ var ytf = (function($){
 										crossDomain: true,
 										data: yq,
 										success: function (search_result) {
-
 											var id, video,
 												entry = search_result.feed.entry;
 
 											if (entry) {
 												// only push the song onto the plst if youtube gave us result for it
 												if (entry.length > 0) {
-
 													id = entry[0].id["$t"];
 
 													if (id) {
-
 														video = id.split(':');
 
 														if (video.length > 2) {
@@ -205,7 +188,6 @@ var ytf = (function($){
 															});
 														}
 													}
-
 												}
 											}
 
@@ -215,7 +197,6 @@ var ytf = (function($){
 
 											// if all the requests to youtube are done we can fire the callback
 											if (requests === total) {
-
 												spinner.stop();
 												BLOCKED = false;
 
@@ -227,7 +208,6 @@ var ytf = (function($){
 													ytf.play(plst[0].id);
 													
 												} else {
-
 													alert('No videos found! Sorry about that.');
 												}
 											}
@@ -245,9 +225,6 @@ var ytf = (function($){
 							BLOCKED = false;
 							alert('Sorry, but we couldn\'t find any songs.');
 						}
-
-
-
 					},
 					error : function (xht, text, error) {
 						spinner.stop();
@@ -256,7 +233,6 @@ var ytf = (function($){
 					}
 				});
 			}
-
 		},
 
 		// get a new set of results for the current mood and style
@@ -281,18 +257,14 @@ var ytf = (function($){
 		},
 
 		setPageTitle: function (data) {
-
 			// if the string is not supplied just set it to the default
 			if (data === 1) {
 				document.title = ' ▸ ' + $("#playlist").find("[data-id='" + current + "']").text();
 			} else {
 				document.title = title;
 			}
-
-			
 		},
 		next: function () {
-
 			// check if the player and playlist have been initialized
 			if (player && current) {
 				// get the next video by looking up the array index of the current video
@@ -316,20 +288,16 @@ var ytf = (function($){
 			
 		},
 		buildPlaylist: function (res) {
-
 			var str = [],
 				songs = []; // Keep track of titles so we dont add any duplicates to the playlist
-
 
 			// clear out the playlist 
 			playlist = [];
 
 			if (res) {
 				for (var i = 0; i < res.length; i+=1) {
-
 					var song = '<span class="strong">' + res[i].artist + '</span> - ' + res[i].title;
 					var id = res[i].id;
-
 
 					// checks if the song was returned more tha nonce from youtube or echonest
 					if ($.inArray(song, songs) < 0 && $.inArray(id, playlist) < 0) {
@@ -342,7 +310,6 @@ var ytf = (function($){
 				}
 				$('#playlist').html(str.join(''));
 			}
-
 		},
 
 		getPlaylist: function () {
@@ -366,7 +333,7 @@ var ytf = (function($){
 
 
 $(document).ready(function () {
-
+	FB.init({appId: "137698956385466", status: true, cookie: true});
 
 	// Submit the data by pressing enter
 	$(document).keypress(function(e) {
@@ -387,14 +354,10 @@ $(document).ready(function () {
 		}
 	});
 
-
-
 	$('#share-twitter').click(function () {
-
 		var text, url, link, opts,
 			mood = $("#mood option:selected").text(),
 			style = $("#style option:selected").text();
-
 
 		// if the mood is not the default grab what is selected
 		if (mood === 'Mood ...') {
@@ -406,7 +369,6 @@ $(document).ready(function () {
 			style = null;
 		}
 
-
 		if (!mood && style) {
 			text = "I'm listenting to " + style + " music via @MoodFuse";
 			url = "http://www.moodfuse.com/?style=" + style.split(' ').join('+')
@@ -417,7 +379,6 @@ $(document).ready(function () {
 			text = "I'm listenting to " + mood + " " + style + " via @MoodFuse";
 			url = "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+');
 		}
-
 
 		link = $.param({ 
 				text: text,
@@ -437,14 +398,12 @@ $(document).ready(function () {
 				',left=' + Math.floor(($(window).width()  - 575)  / 2
 			);
 
-
 		window.open("https://twitter.com/share?" + link, "Share", opts);
 		return false;
 
 	});
 
 	$('#share-facebook').click(function () {
-
 		var link, name,
 			mood = $("#mood option:selected").text(),
 			style = $("#style option:selected").text();
@@ -459,7 +418,6 @@ $(document).ready(function () {
 			style = null;
 		}
 
-
 		if (!mood && style) {
 			name = "I'm listenting to " + style + " music on MoodFuse!";
 			link = "http://www.moodfuse.com/?style=" + style.split(' ').join('+')
@@ -470,9 +428,6 @@ $(document).ready(function () {
 			name = "I'm listenting to " + mood + " " + style + " on MoodFuse!";
 			link = "http://www.moodfuse.com/?mood=" + mood.split(' ').join('+')  + "&style=" + style.split(' ').join('+');
 		}
-
-
-		FB.init({appId: "137698956385466", status: true, cookie: true});
 
 		FB.ui({
 			method: 'feed',
@@ -497,7 +452,6 @@ $(document).ready(function () {
 
 	$("#submit").click(function () {
 		// only submit the data if both drop downs are hidden
-
 		var mood =  $("#mood option:selected").text(),
 			style = $("#style option:selected").text();
 
@@ -510,7 +464,6 @@ $(document).ready(function () {
 		if (style === 'Genre ...') {
 			style = null;
 		}
-
 
 		// make sure at least one item is selected
 		if (!mood && !style) {
@@ -526,17 +479,13 @@ $(document).ready(function () {
 
 	$('#next').click(function () {
 		ytf.next();
-		
 	});
 
 	$('#refresh').click(function () {
 		ytf.refresh();
-		
 	});
 
-
 	$('#surprise').click(function () {
-
 		var mood = document.getElementById("mood"),
 			style = document.getElementById("style"),
 			r1 = Math.floor(mood.options.length * (Math.random() % 1)),
@@ -547,14 +496,8 @@ $(document).ready(function () {
 			mood.selectedIndex = r1;
 			style.selectedIndex = r2;
 		
-
 			ytf.setIndex(1);
 			ytf.getResults(mood.options[r1].text,style.options[r2].text);
 		}
-
-
-
-		
 	});
-
 });
