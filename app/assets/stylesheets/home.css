@@ -136,8 +136,8 @@ iframe {
 	padding:6px 10px;
 	letter-spacing: 1px;
 	cursor: pointer;
-	background-color:white;
-	border: 0;
+	
+	border: 0 !important;
 	-moz-user-select: none; 
 	-khtml-user-select: none; 
 	-webkit-user-select: none; 
@@ -151,6 +151,14 @@ iframe {
 	border-radius: 4px 4px 4px 4px;
 	-khtml-border-radius: 4px 4px 4px 4px;
 	-o-border-radius: 4px 4px 4px 4px;
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: url("sprite.png") no-repeat;
+	background-position: -130px -220px;
+	background-color:white;
+	text-indent: 0.01px;
+	text-overflow: "";
 }
 
 
@@ -164,8 +172,8 @@ iframe {
 
 #submit {
 	margin-right:10px;
-	background-position: 0 -72px;
-	width:58px;
+	background-position: 4px -72px;
+	width:50px;
 }
 
 #surprise {
@@ -300,7 +308,12 @@ iframe {
 	float:right;
 }
 
-
+.github-ribbon {
+	position: absolute; 
+	top: 0; 
+	right: 0; 
+	border: 0;
+}
 
 
 
@@ -371,6 +384,7 @@ iframe {
 	#mood, #style {
 		position: relative;
 		width: 300px;
+		background-position: -210px -220px;
 	}
 
 	#submit {
@@ -383,6 +397,9 @@ iframe {
 		background-position: -145px -120px;
 	}
 
+	.github-ribbon {
+		display: none;
+	}
 }
 
 
@@ -441,16 +458,21 @@ iframe {
 	#mood, #style {
 		position: relative;
 		width: 460px;
+		background-position: -50px -220px;
 	}
 
 	#submit {
 		width:225px;
-		background-position: 0 -168px;
+		background-position: 20px -168px;
 	}
 
 	#surprise {
 		width:225px;
 		background-position: -225px -168px;
+	}
+
+	.github-ribbon {
+		display: none;
 	}
 
 }
@@ -506,7 +528,10 @@ iframe {
 	#mood, #style {
 		position: relative;
 		width: 280px;
+		background-position: -220px -220px;
 	}
 
-
+	.github-ribbon {
+		display: none;
+	}
 }
