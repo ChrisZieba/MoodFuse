@@ -13,8 +13,8 @@ Requirements
 Installing
 ----------
 
-1. Install bundler if you don't have it: gem install bundler
-1. Execute rake db:create
+1. Install bundler if you don't have it: `gem install bundler`
+1. Execute `rake db:create`
 
 Coming Soon
 -----------
