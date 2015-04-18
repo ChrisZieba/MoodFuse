@@ -147,20 +147,18 @@ var ytf = (function($){
 							// go through every song and look it up on youtube
 							for (var i = 0; i < songs.length; i +=1) {
 								(function(song) {
-									var youtube = "https://gdata.youtube.com/feeds/api/videos?";
+									var youtube = "https://www.googleapis.com/youtube/v3/search?";
 
 									yq = $.param({ 
 										"q": song.artist_name + "+" + song.title, 
-										"orderby": "relevance",
+										"type": "video",
+										"order": "relevance",
 										"start-index": "1",
 										"max-results": "10",
-										"v": "2",
-										//"duration": "short",
-										"category": "Music",
-										"format": "5",
-										"fields": "entry",
-										"alt": "json-in-script",
-										"key": "AI39si40llauefY25o3BU3qy6wxiGHvhFdH8iJPurk0n8p5gplCkuC9kbgjNDI_00IpFHuGpDLZ9selALU8Rx2BqW1GoJ9j3lQ"
+										"videoCategoryId": "10",
+										"alt": "json",
+										"part": "id, snippet",
+										"key": "AIzaSyDA9zclpvT41AeFbsAaO5rVLZIx1yCFrvQ"
 									});
 
 									$.ajax({
@@ -169,24 +167,22 @@ var ytf = (function($){
 										crossDomain: true,
 										data: yq,
 										success: function (search_result) {
-											var id, video,
-												entry = search_result.feed.entry;
+											console.log(search_result);
+											var id, video;
+											var items = search_result.items;
 
-											if (entry) {
+											if (items) {
 												// only push the song onto the plst if youtube gave us result for it
-												if (entry.length > 0) {
-													id = entry[0].id["$t"];
+												if (items.length > 0) {
+													id = items[0].id["videoId"];
 
 													if (id) {
-														video = id.split(':');
-
-														if (video.length > 2) {
-															plst.push({
-																artist: song.artist_name,
-																title: song.title,
-																id: video[3]
-															});
-														}
+														plst.push({
+															song: song.title,
+															artist: song.artist_name,
+															title: items[0].snippet.title,
+															id: id
+														});
 													}
 												}
 											}
@@ -296,8 +292,8 @@ var ytf = (function($){
 
 			if (res) {
 				for (var i = 0; i < res.length; i+=1) {
-					var song = '<span class="strong">' + res[i].artist + '</span> - ' + res[i].title;
 					var id = res[i].id;
+					var song = '<span class="strong">' + res[i].artist + '</span> - ' + res[i].song;
 
 					// checks if the song was returned more tha nonce from youtube or echonest
 					if ($.inArray(song, songs) < 0 && $.inArray(id, playlist) < 0) {
