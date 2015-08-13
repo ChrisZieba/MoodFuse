@@ -1,7 +1,7 @@
 MoodFuse
 =========
 
-A simple way to enjoy new music based on your mood!
+A simple way to enjoy new music based on your mood! [See here!](moodfuse.com)
 
 Requirements
 ------------
