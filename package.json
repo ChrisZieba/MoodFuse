@@ -9,8 +9,10 @@
     "babel-loader": "latest",
     "babel-preset-env": "latest",
     "babel-preset-react": "latest",
-    "css-loader": "^0.28.7",
-    "style-loader": "^0.18.2",
+    "css-loader": "latest",
+    "style-loader": "latest",
+    "file-loader": "latest",
+    "url-loader": "latest",
     "webpack": "latest",
     "webpack-dev-server": "latest"
   }
