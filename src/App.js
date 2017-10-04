@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.png';
+import youtube from './lib/youtube';
 
 import Container from './components/Container/Container';
 
 class App extends Component {
+  componentWillMount() {
+    // Load the youtube player asap
+    youtube.init();
+  }
+
   render() {
     return (
       <div className="app">

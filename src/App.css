@@ -3,16 +3,13 @@
 .app {
   padding-top: 25px;
   text-align: center;
-  background-color: #B9461A;
-  border: 8px solid black;
   color: white;
-  min-height: 800px;
 }
 
 .social {
   position: absolute;
-  top: 25px;
-  left: 25px;
+  top: 15px;
+  left: 15px;
 }
 
 .social iframe {
