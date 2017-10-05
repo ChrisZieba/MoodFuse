@@ -2,8 +2,14 @@
 
 }
 
+#form .option {
+  margin: 10px 0;
+  position: relative;
+}
+
 #form select.genre {
-  margin: 0 12px 10px 0;
+  margin: 0;
+  width:200px;
   outline: none;
   color: #B9461A;
   font-weight: bold;
@@ -14,11 +20,11 @@
 #form .slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
-  width: 200px; /* Full-width */
-  height: 25px; /* Specified height */
+  width: 400px; /* Full-width */
+  height: 30px; /* Specified height */
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  opacity: 0.4; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
 }
@@ -32,22 +38,42 @@
 #form .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
+  width: 30px; /* Set a specific slider handle width */
+  height: 30px; /* Slider handle height */
+  background: purple; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
 
 #form .slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
+  width: 18px; /* Set a specific slider handle width */
+  height: 18px; /* Slider handle height */
   background: #4CAF50; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
 
-#form label {
-  width: 200px;
-  color: #e3e3e3;
-  font-weight: bold;
-  text-align: right;
+#form .label {
+  font-size: 590%;
+  color: white;
+  font-style: italic;
+  font-weight: 300;
+  font-family: "Fredoka One", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#form .elem {
+  position: absolute;
+  left: 40%;
+  top: 80px;
+}
+
+#form button {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 5px;
+  border-color: #743016;
+  border-width: 3px;
+  padding: 5px;
+  background-color: #974222;
+  color: white;
+  width: 130px;
+  cursor: pointer;
 }

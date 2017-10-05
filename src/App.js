@@ -21,7 +21,7 @@ class App extends Component {
         </div>
         <header>
           <img src={logo} alt="Moodfuse" className="logo" />
-          <h1 className="tag">What are you in the mood for?</h1>
+
         </header>
 
         <Container/>
