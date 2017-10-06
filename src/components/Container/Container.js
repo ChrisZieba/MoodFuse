@@ -10,7 +10,27 @@ class Container extends Component {
     super(props);
     this.state = {
       playlist: [],
+      visibility: 'hidden',
+      nowPlaying: null,
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.myCallback = this.myCallback.bind(this);
+  }
+
+  handleChange(playlist) {
+    this.setState({
+      playlist,
+      visibility: 'visible'
+    });
+
+    // Start playing the first song in the playlist
+    youtube.play(this.state.playlist[0].id);
+
+    this.setState({
+      nowPlaying: this.state.playlist[0].id,
+    });
+
   }
 
   // Will be the playlist
@@ -19,10 +39,14 @@ class Container extends Component {
     const recommendations = spotify.getRecommendations(genre, energy, danceability, happiness);
     
     recommendations.then((tracks) => youtube.getVideos(tracks)).then((playlist) => {
-      console.log(playlist)
+      if (playlist.length < 1) {
+        alert('Could not find any songs, try changing the options');
+      } else {
+        this.handleChange(playlist);
+      }
     }).catch((res) => {
       console.log(res);
-      if (res.error && res.error.message) {
+      if (res && res.error && res.error.message) {
         alert(res.error.message);
       }
     });
@@ -32,7 +56,7 @@ class Container extends Component {
     return (
       <div id="container">
         <Form callbackFromParent={this.myCallback} />
-        <Player/>
+        <Player playlist={this.state.playlist}visibility={this.state.visibility} />
       </div>
     );
   }

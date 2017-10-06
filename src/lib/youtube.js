@@ -31,7 +31,7 @@ const youtube = {
 
     // Youtube api needs to use the global space
     window.onYouTubeIframeAPIReady = () => {
-      player = new YT.Player('player', {
+      player = new YT.Player('media', {
         height: '279',
         width: '372',
         videoId: '',
@@ -42,20 +42,26 @@ const youtube = {
           'controls': 2
         },
         events: {
-          'onReady': function () {
-            ytf.init();
-          },
-          'onStateChange': function (event) {
-
-            ytf.setPageTitle(event.data);
-
+          onStateChange: (event) => {
+            // Play the next song in the playlist
             if (event.data == YT.PlayerState.ENDED) {
-              ytf.next();
+              this.next();
             } 
           }
         }
       });
     }
+  },
+  next: () => {
+
+  },
+  play: (id) => {
+    if (!player) {
+      return;
+    }
+
+    player.loadVideoById(id);
+
   },
   getPlayer: () => {
     return player;

@@ -6,7 +6,7 @@ class Form extends Component {
     super(props);
     this.state = {
       genre: 'indie-pop',
-      energy: 25,
+      energy: 65,
       happiness: 75,
       danceability: 50,
     };

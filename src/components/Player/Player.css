@@ -1,1 +1,26 @@
-#player {}
+#player {
+  margin: 40px 0;
+  padding-top: 20px;
+}
+
+#media-container {
+  visibility: hidden;
+}
+
+#player .item {
+  margin: 2px 0;
+  padding: 2px 0;
+}
+
+#player .item:hover {
+  background-color: #993007;
+  cursor: pointer;
+}
+
+#player .artist {
+  font-weight: bold;
+}
+
+#player .title {
+  letter-spacing: 1px;
+}

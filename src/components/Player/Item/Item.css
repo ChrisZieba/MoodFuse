@@ -1,0 +1,17 @@
+.item {
+  margin: 2px 0;
+  padding: 2px 0;
+}
+
+.item:hover {
+  background-color: #993007;
+  cursor: pointer;
+}
+
+.artist {
+  font-weight: bold;
+}
+
+.title {
+  letter-spacing: 1px;
+}
