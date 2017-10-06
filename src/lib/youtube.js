@@ -2,9 +2,27 @@
 
 let player;
 
+// Takes the raw response from youtube
+const format = (res) => {
+  return res.reduce((playlist, result) => {
+    if (Array.isArray(result.response.items) && result.response.items.length > 0) {
+      let id = result.response.items[0].id["videoId"];
+      
+      if (id) {
+        playlist.push({
+          track: result.track,
+          id
+        });
+      }
+    }
+
+    return playlist;
+  }, []);
+};
+
 const youtube = {
   init: () => {
-    // This code loads the IFrame Player API code asynchronously.
+    // This code loads the IFrame Player API code asynchronously
     const tag = document.createElement('script');
 
     tag.src = "https://www.youtube.com/iframe_api";
@@ -61,28 +79,34 @@ const youtube = {
         let qs = Object.keys(options).map(opt => `${opt}=${options[opt]}`).join('&');
         let url = `${endpoint}?q=${track.artist}+${track.title}&${qs}`
         let xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
 
         xhr.open('GET', url);
         xhr.onload = () => {
-          console.log(this.status)
-          if (this.status >= 200 && this.status < 300) {
-            resolve(xhr.response);
+          if (xhr.status === 200) {
+            resolve({
+              track,
+              response: xhr.response
+            });
           } else {
-            reject(xhr.statusText);
+            reject(xhr.response);
           }
         };
-        xhr.onerror = () => reject(xhr.statusText);
+        xhr.onerror = () => reject(xhr.response);
+        xhr.send();
       }));
       return promises;
     }, []);
 
     return new Promise((resolve, reject) => {
       Promise.all(promises).then(values => { 
-        console.log(values);
-        resolve(values);
+        resolve(format(values));
       }).catch(reason => {
-        console.log(243);
-        reject();
+        reject({
+          error: {
+            message: 'Could not retrieve search results from YouTube'
+          }
+        });
       });
     });
   }

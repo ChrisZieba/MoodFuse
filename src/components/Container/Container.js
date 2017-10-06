@@ -20,7 +20,12 @@ class Container extends Component {
     
     recommendations.then((tracks) => youtube.getVideos(tracks)).then((playlist) => {
       console.log(playlist)
-    })
+    }).catch((res) => {
+      console.log(res);
+      if (res.error && res.error.message) {
+        alert(res.error.message);
+      }
+    });
   }
 
   render() {
