@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './Container.css';
 import spotify from '../../lib/spotify';
 import youtube from '../../lib/youtube';
@@ -23,6 +24,13 @@ class Container extends Component {
       playlist,
       visibility: 'visible'
     });
+
+    // Scroll down to the player
+    const node = ReactDOM.findDOMNode(this.refs.player);
+    console.log(node.offsetTop);
+    if (node) {
+      window.scrollTo(0, node.offsetTop);
+    }
 
     // Start playing the first song in the playlist
     youtube.play(this.state.playlist[0].id);
@@ -56,7 +64,7 @@ class Container extends Component {
     return (
       <div id="container">
         <Form callbackFromParent={this.myCallback} />
-        <Player playlist={this.state.playlist}visibility={this.state.visibility} />
+        <Player ref="player" playlist={this.state.playlist} visibility={this.state.visibility} />
       </div>
     );
   }

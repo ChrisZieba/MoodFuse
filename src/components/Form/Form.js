@@ -9,6 +9,7 @@ class Form extends Component {
       energy: 65,
       happiness: 75,
       danceability: 50,
+      button: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,6 +26,32 @@ class Form extends Component {
   }
 
   submit() {
+
+    this.setState({button: 'active loader'});
+    setTimeout(()=> {
+      this.setState({button: ''});
+    }, 1000);
+
+    // var $this = $(this);
+    // if($this.hasClass('active') || $this.hasClass('success')) {
+    //   return false;
+    // }
+    // $this.addClass('active');
+    // setTimeout(()=> {
+    //   $this.addClass('loader');
+    // }, 125);
+    // setTimeout(()=> {
+    //   $this.removeClass('loader active');
+    //   $this.text('Success');
+    //   $this.addClass('success animated pulse');
+    // }, 1600);
+    // setTimeout(()=> {
+    //   $this.text('Go');
+    //   $this.removeClass('success animated pulse');
+    //   $this.blur();
+    // }, 2900);
+
+
     this.props.callbackFromParent(this.state.genre, this.state.energy/100, this.state.danceability/100, this.state.happiness/100);
   }
 
@@ -88,7 +115,7 @@ class Form extends Component {
           <div className="elem"><input name="danceability" type="range" min="0" max="100"  value={this.state.danceability} className="slider" onChange={this.handleChange}/></div>
         </div>
 
-        <div><button onClick={this.submit.bind(this)}>go</button></div>
+        <div className="button-container"><button type="submit" onClick={this.submit.bind(this)} className={this.state.button} >click me!</button></div>
       </div>
     );
   }
