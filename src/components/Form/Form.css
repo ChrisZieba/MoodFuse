@@ -19,7 +19,7 @@
 }
 
 #form select.genre:hover {
-  opacity: 1;
+  opacity: 0.9;
 }
 
 #form .slider {
@@ -35,7 +35,7 @@
 }
 
 #form .slider:hover {
-  opacity: 1;
+  opacity: 0.9;
 }
 
 #form .slider::-webkit-slider-thumb {
@@ -55,7 +55,7 @@
 }
 
 #form .label {
-  font-size: 475%;
+  font-size: 80px;
   color: white;
   font-style: italic;
   font-weight: 300;
@@ -140,5 +140,19 @@ button[type="submit"].loader {
   100% {
     -webkit-transform: rotateZ(360deg);
             transform: rotateZ(360deg);
+  }
+}
+
+@media only screen and (max-width: 420px), only screen and (max-device-width: 420px) {
+  #form .label {
+    font-size: 40px;
+  }
+
+  #form .elem {
+    margin-top: -10px;
+  }
+
+  #form .button-container {
+    margin-top: 10px;
   }
 }

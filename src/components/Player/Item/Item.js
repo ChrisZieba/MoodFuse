@@ -14,7 +14,7 @@ class Item extends Component {
   render() {
     return (
       <div>
-        <div className="item" onClick={this.handleClick}>
+        <div className={"item " + (this.props.current === this.props.song.id ? 'active' : '')} onClick={this.handleClick}>
           <span className="artist">{this.props.song.track.artist}</span> - <span className="title">{this.props.song.track.title}</span>
         </div>
         <div className="links">

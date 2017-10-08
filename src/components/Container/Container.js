@@ -16,7 +16,10 @@ class Container extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.myCallback = this.myCallback.bind(this);
+    this.formCallback = this.formCallback.bind(this);
+    this.playerCallback = this.playerCallback.bind(this);
+    this.handleUpdates = this.handleUpdates.bind(this);
+    youtube.listen(this.handleUpdates);
   }
 
   handleChange(playlist) {
@@ -43,29 +46,38 @@ class Container extends Component {
   }
 
   // Will be the playlist
-  myCallback(genre, energy, danceability, happiness) {
+  formCallback(genre, energy, danceability, happiness) {
     // Get recommendations from spotify
     const recommendations = spotify.getRecommendations(genre, energy, danceability, happiness);
     
     recommendations.then((tracks) => youtube.getVideos(tracks)).then((playlist) => {
       if (playlist.length < 1) {
-        alert('Could not find any songs, try changing the options');
+        alert('Couldn\'t find any songs, try changing the options');
       } else {
         this.handleChange(playlist);
       }
     }).catch((res) => {
-      console.log(res);
       if (res && res.error && res.error.message) {
         alert(res.error.message);
       }
     });
   }
 
+  playerCallback(id) {
+    youtube.play(id);
+    youtube.setCurrent(id);
+    this.setState({ current: id });
+  }
+
+  handleUpdates(id) {
+    this.setState({ current: id });
+  }
+
   render() {
     return (
       <div id="container">
-        <Form callbackFromParent={this.myCallback} />
-        <Player ref="player" playlist={this.state.playlist} visibility={this.state.visibility} />
+        <Form callbackFromParent={this.formCallback} />
+        <Player ref="player" callbackFromParent={this.playerCallback} playlist={this.state.playlist} visibility={this.state.visibility} current={this.state.current} />
       </div>
     );
   }

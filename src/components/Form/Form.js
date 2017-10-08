@@ -30,7 +30,7 @@ class Form extends Component {
     this.setState({button: 'active loader'});
     setTimeout(()=> {
       this.setState({button: ''});
-    }, 1000);
+    }, 1500);
 
     this.props.callbackFromParent(this.state.genre, this.state.energy/100, this.state.danceability/100, this.state.happiness/100);
   }

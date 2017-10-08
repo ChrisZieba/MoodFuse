@@ -2,7 +2,13 @@
   margin: 2px;
   padding: 2px;
   display: inline-block;
-  border:3px dotted white;
+  color: #ECC8BA;
+}
+
+.item.active {
+  background-color: #993007;
+  border-radius: 5px;
+  color: white;
 }
 
 .links {
@@ -24,6 +30,7 @@
 .item:hover {
   background-color: #993007;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .artist {

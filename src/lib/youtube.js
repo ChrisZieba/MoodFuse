@@ -1,6 +1,6 @@
 'use strict';
 
-let player, playlist, current;
+let player, playlist, current, fn;
 
 // Takes the raw response from youtube
 const format = (res) => {
@@ -40,7 +40,7 @@ youtube.init = () => {
   window.onYouTubeIframeAPIReady = () => {
     player = new YT.Player('media', {
       height: '240',
-      width: '360',
+      width: '354',
       videoId: '',
       playerVars: { 
         'wmode': 'opaque',
@@ -69,6 +69,9 @@ youtube.play = (id) => {
   }
 
   player.loadVideoById(id);
+  current = id;
+  //Set the current
+  fn(id);
 
 };
 
@@ -83,6 +86,10 @@ youtube.setPlaylist = (p) => {
 youtube.setCurrent = (c) => {
   current = c;
 };
+
+youtube.listen = (f) => {
+  fn = f;
+}
 
 youtube.getVideos = (tracks) => {
   const endpoint = "https://www.googleapis.com/youtube/v3/search";

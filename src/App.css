@@ -18,7 +18,7 @@
 }
 
 .logo {
-  border: 12px solid white;
+  border: 10px solid white;
   border-radius: 50%;
   padding: 1px;
 }
@@ -36,5 +36,17 @@
 }
 
 #footer p {
-  font-size: 75%;
+  font-size: 85%;
+  color: #FFA582;
+}
+
+@media only screen and (max-width: 420px), only screen and (max-device-width: 420px) {
+  .logo {
+    margin-top: 10px;
+  }
+
+  #footer p {
+    font-size: 100%;
+  }
+
 }

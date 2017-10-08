@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Player.css';
 import Item from './Item/Item';
-import youtube from '../../lib/youtube';
 
 class Player extends Component {
   constructor(props) {
@@ -10,7 +9,8 @@ class Player extends Component {
   }
 
   handleClick(id) {
-    youtube.play(id)
+    console.log(id)
+    this.props.callbackFromParent(id);
   }
 
   render() {
@@ -22,7 +22,7 @@ class Player extends Component {
         <div id="playlist">
           {this.props.playlist.map((song) => {
             return (
-              <Item key={song.id} clickHandler={this.handleClick} song={song} />
+              <Item key={song.id} clickHandler={this.handleClick} song={song} current={this.props.current} />
             );
           })}
         </div>
