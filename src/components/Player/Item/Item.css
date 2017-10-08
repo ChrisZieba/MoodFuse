@@ -1,0 +1,42 @@
+.item {
+  margin: 2px;
+  padding: 2px;
+  display: inline-block;
+  color: #ECC8BA;
+}
+
+.item.active {
+  background-color: #993007;
+  border-radius: 5px;
+  color: white;
+}
+
+.links {
+  display: inline-block;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 2px;
+  opacity: 0.5;
+}
+
+.links a:hover {
+  text-decoration: none;
+ opacity: 1;
+}
+
+.item:hover {
+  background-color: #993007;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.artist {
+  font-weight: bold;
+}
+
+.title {
+  letter-spacing: 1px;
+}

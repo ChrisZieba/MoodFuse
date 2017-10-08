@@ -1,0 +1,52 @@
+@import url('http://fonts.googleapis.com/css?family=Fredoka+One');
+
+.app {
+  padding-top: 25px;
+  text-align: center;
+  color: white;
+}
+
+.social {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.social iframe {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.logo {
+  border: 10px solid white;
+  border-radius: 50%;
+  padding: 1px;
+}
+
+.tag {
+  color: #FFF;
+  font-size: 65px;
+  line-height: 80px;
+  font-weight: normal;
+  font-family: "Fredoka One", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#footer {
+  margin-top:50px;
+}
+
+#footer p {
+  font-size: 85%;
+  color: #FFA582;
+}
+
+@media only screen and (max-width: 420px), only screen and (max-device-width: 420px) {
+  .logo {
+    margin-top: 10px;
+  }
+
+  #footer p {
+    font-size: 100%;
+  }
+
+}

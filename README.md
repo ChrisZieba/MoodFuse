@@ -1,30 +1,27 @@
 MoodFuse
 =========
 
-A simple way to enjoy new music based on your mood! [See here for a demo.](moodfuse.com)
+[![MoodFuse](https://pbs.twimg.com/profile_images/2995289769/2ece3a5c6f8eac2fd208b7c783117fe2_400x400.png)](https://moodfuse.com/)
 
-Requirements
-------------
+[![Build Status](https://travis-ci.org/ChrisZieba/dodgercms.svg)](https://travis-ci.org/ChrisZieba/dodgercms)
+ 
+[MoodFuse](https://moodfuse.com/) A simple way to enjoy new music based on your mood! The [Spotify](https://spotify.com/) recommendations API is used to generate a list of tracks based on energy, danceability, happiness and genre. The tracks are played in the browser using YouTube.
 
-- Ruby 1.9.3+
-- Rails 3
-- sqlite
+## Installation
 
-Installing
-----------
+Build the assets and run locally.
 
-1. Install bundler if you don't have it: `gem install bundler`
-1. Execute `rake db:create`
+```
+node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public/ --inline
+```
 
-Coming Soon
------------
+Once the assets are compiled run a dev server to serve.
 
-1. Better support for mobile devices
-1. Save favorite videos directly to youtube
-2. More advanced filtering of music videos
-3. Shuffle Songs in a playlist
-4. Better playlist options (new songs, delete unwanted)
+```
+http://localhost:8080/
+```
 
-License
--------
-MoodFuse's source is under the GNU GENERAL PUBLIC LICENSE.
+## License
+
+`MIT License` (MIT)  
+Copyright (c) 2015 Chris Zieba

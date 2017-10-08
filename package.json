@@ -1,0 +1,19 @@
+{
+  "name": "MoodFuse",
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "babel-core": "latest",
+    "babel-loader": "latest",
+    "babel-preset-env": "latest",
+    "babel-preset-react": "latest",
+    "css-loader": "latest",
+    "style-loader": "latest",
+    "file-loader": "latest",
+    "url-loader": "latest",
+    "webpack": "latest",
+    "webpack-dev-server": "latest"
+  }
+}
