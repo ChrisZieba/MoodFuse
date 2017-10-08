@@ -1,6 +1,24 @@
 .item {
-  margin: 2px 0;
-  padding: 2px 0;
+  margin: 2px;
+  padding: 2px;
+  display: inline-block;
+  border:3px dotted white;
+}
+
+.links {
+  display: inline-block;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 2px;
+  opacity: 0.5;
+}
+
+.links a:hover {
+  text-decoration: none;
+ opacity: 1;
 }
 
 .item:hover {

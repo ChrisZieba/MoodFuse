@@ -6,9 +6,9 @@ class Form extends Component {
     super(props);
     this.state = {
       genre: 'indie-pop',
-      energy: 65,
+      energy: 85,
       happiness: 75,
-      danceability: 50,
+      danceability: 60,
       button: ''
     };
 
@@ -31,26 +31,6 @@ class Form extends Component {
     setTimeout(()=> {
       this.setState({button: ''});
     }, 1000);
-
-    // var $this = $(this);
-    // if($this.hasClass('active') || $this.hasClass('success')) {
-    //   return false;
-    // }
-    // $this.addClass('active');
-    // setTimeout(()=> {
-    //   $this.addClass('loader');
-    // }, 125);
-    // setTimeout(()=> {
-    //   $this.removeClass('loader active');
-    //   $this.text('Success');
-    //   $this.addClass('success animated pulse');
-    // }, 1600);
-    // setTimeout(()=> {
-    //   $this.text('Go');
-    //   $this.removeClass('success animated pulse');
-    //   $this.blur();
-    // }, 2900);
-
 
     this.props.callbackFromParent(this.state.genre, this.state.energy/100, this.state.danceability/100, this.state.happiness/100);
   }
@@ -76,7 +56,7 @@ class Form extends Component {
               <option>electronic</option>
               <option>folk</option>
               <option>funk</option>
-              <option>hip-ho</option>
+              <option>hip-hop</option>
               <option>holidays</option>
               <option>house</option>
               <option>indie</option>
@@ -102,17 +82,17 @@ class Form extends Component {
         </div>
         <div className="option">
           <div className="label">energy</div>
-          <div className="elem"><input name="energy" type="range" min="0" max="100"  value={this.state.energy} className="slider" onChange={this.handleChange}/></div>
+          <div className="elem"><input name="energy" type="range" min="20" max="100"  value={this.state.energy} className="slider" onChange={this.handleChange}/></div>
         </div>
 
         <div className="option">
           <div className="label">happiness</div>
-          <div className="elem"><input name="happiness" type="range" min="0" max="100"  value={this.state.happiness} className="slider" onChange={this.handleChange}/></div>
+          <div className="elem"><input name="happiness" type="range" min="20" max="100"  value={this.state.happiness} className="slider" onChange={this.handleChange}/></div>
         </div>
 
         <div className="option">
           <div className="label">danceability</div>
-          <div className="elem"><input name="danceability" type="range" min="0" max="100"  value={this.state.danceability} className="slider" onChange={this.handleChange}/></div>
+          <div className="elem"><input name="danceability" type="range" min="20" max="100"  value={this.state.danceability} className="slider" onChange={this.handleChange}/></div>
         </div>
 
         <div className="button-container"><button type="submit" onClick={this.submit.bind(this)} className={this.state.button} >click me!</button></div>

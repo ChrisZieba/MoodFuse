@@ -12,7 +12,7 @@ class Container extends Component {
     this.state = {
       playlist: [],
       visibility: 'hidden',
-      nowPlaying: null,
+      current: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,19 +25,20 @@ class Container extends Component {
       visibility: 'visible'
     });
 
+    youtube.setPlaylist(playlist);
+
     // Scroll down to the player
     const node = ReactDOM.findDOMNode(this.refs.player);
-    console.log(node.offsetTop);
     if (node) {
       window.scrollTo(0, node.offsetTop);
     }
 
-    // Start playing the first song in the playlist
-    youtube.play(this.state.playlist[0].id);
+    const current = this.state.playlist[0].id;
 
-    this.setState({
-      nowPlaying: this.state.playlist[0].id,
-    });
+    // Start playing the first song in the playlist
+    youtube.play(current);
+    youtube.setCurrent(current);
+    this.setState({ current });
 
   }
 

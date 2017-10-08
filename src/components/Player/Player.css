@@ -7,16 +7,6 @@
   visibility: hidden;
 }
 
-#player .item {
-  margin: 2px 0;
-  padding: 2px 0;
-}
-
-#player .item:hover {
-  background-color: #993007;
-  cursor: pointer;
-}
-
 #player .artist {
   font-weight: bold;
 }

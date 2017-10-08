@@ -21,10 +21,12 @@ class App extends Component {
         </div>
         <header>
           <img src={logo} alt="Moodfuse" className="logo" />
-
         </header>
 
         <Container/>
+        <div id="footer">
+          <p>MoodFuse was created by <a href="http://www.chriszieba.com" title="Homepage of Chris Zieba">Chris Zieba</a> and is made possible by <a href="http://www.spotify.com">Spotify</a> and <a href="http://www.youtube.com">YouTube</a>. If you would like the code for this app, it is publically available on <a href="https://github.com/ChrisZieba/MoodFuse">github</a>.</p>
+        </div>
       </div>
     );
   }

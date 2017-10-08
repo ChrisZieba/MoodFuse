@@ -30,3 +30,11 @@
   font-weight: normal;
   font-family: "Fredoka One", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+#footer {
+  margin-top:50px;
+}
+
+#footer p {
+  font-size: 75%;
+}
