@@ -21,6 +21,14 @@ Once the assets are compiled run a dev server to serve.
 http://localhost:8080/
 ```
 
+## Deploy
+
+Places the bundle file in  the public folder.
+
+`
+node_modules/webpack/bin/webpack.js -p
+`
+
 ## License
 
 `MIT License` (MIT)  

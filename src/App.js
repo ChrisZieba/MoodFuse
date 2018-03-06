@@ -25,7 +25,7 @@ class App extends Component {
 
         <Container/>
         <div id="footer">
-          <p>MoodFuse was created by <a href="http://www.chriszieba.com" title="Homepage of Chris Zieba">Chris Zieba</a> and is made possible by <a href="http://www.spotify.com">Spotify</a> and <a href="http://www.youtube.com">YouTube</a>. If you would like the code for this app, it is publically available on <a href="https://github.com/ChrisZieba/MoodFuse">Github</a>.</p>
+          <p>MoodFuse was created by <a href="https://chriszieba.com" title="Homepage of Chris Zieba">Chris Zieba</a> and is made possible by <a href="http://www.spotify.com">Spotify</a> and <a href="http://www.youtube.com">YouTube</a>. If you would like the code for this app, it is publically available on <a href="https://github.com/ChrisZieba/MoodFuse">Github</a>.</p>
         </div>
       </div>
     );
