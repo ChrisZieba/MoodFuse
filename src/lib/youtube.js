@@ -94,14 +94,15 @@ youtube.listen = (f) => {
 youtube.getVideos = (tracks) => {
   const endpoint = "https://www.googleapis.com/youtube/v3/search";
   const options = {
-    type: "video",
-    order: "relevance",
+    "type": "video",
+    "order": "relevance",
     'start-index': "1",
     "max-results": "10",
-    videoCategoryId: "10",
-    alt: "json",
-    part: "id,snippet",
-    key: "AIzaSyDA9zclpvT41AeFbsAaO5rVLZIx1yCFrvQ"
+    "videoCategoryId": "10",
+    "videoEmbeddable": "true",
+    "alt": "json",
+    "part": "id,snippet",
+    "key": "AIzaSyDA9zclpvT41AeFbsAaO5rVLZIx1yCFrvQ"
   };
 
   // Create a promise for each track
