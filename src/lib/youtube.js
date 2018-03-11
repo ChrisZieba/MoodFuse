@@ -44,6 +44,7 @@ youtube.init = () => {
       videoId: '',
       playerVars: { 
         'wmode': 'opaque',
+        'origin': 'https://www.youtube.com',
         'rel': 0,
         'showinfo': 1,
         'controls': 2
