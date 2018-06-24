@@ -16,5 +16,8 @@
     "webpack": "latest",
     "webpack-cli": "latest",
     "webpack-dev-server": "latest"
+  },
+  "scripts": {
+    "start:dev": "webpack-dev-server --mode development"
   }
 }
