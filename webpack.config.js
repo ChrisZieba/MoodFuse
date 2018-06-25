@@ -6,8 +6,13 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "public"),
-    publicPath: "/public/",
+    //publicPath: "/public/",
     filename: "bundle.js"
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "public"), // Tell the server where to serve content from. This is only necessary if you want to serve static files
+    //publicPath: "/", // The bundled files will be available in the browser under this path.
+    noInfo: false // Only errors & warns on hot reload
   },
   module: {
     rules: [
