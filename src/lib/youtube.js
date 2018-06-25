@@ -9,7 +9,7 @@ const format = (res) => {
   return res.reduce((playlist, result) => {
     if (Array.isArray(result.response.items) && result.response.items.length > 0) {
       let id = result.response.items[0].id["videoId"];
-      
+      console.log(result.response)
       // Make sure the ID only appears once in the playlist
       if (id && !map[id]) {
         playlist.push({
@@ -101,7 +101,7 @@ youtube.getVideos = (tracks) => {
   const options = {
     "type": "video",
     "order": "relevance",
-    'start-index': "1",
+    'start-index': "5",
     "max-results": "15",
     "videoCategoryId": "10",
     "videoEmbeddable": "true",
