@@ -4,15 +4,19 @@ let player, playlist, current, fn;
 
 // Takes the raw response from youtube
 const format = (res) => {
+  const map = {};
+
   return res.reduce((playlist, result) => {
     if (Array.isArray(result.response.items) && result.response.items.length > 0) {
       let id = result.response.items[0].id["videoId"];
       
-      if (id) {
+      // Make sure the ID only appears once in the playlist
+      if (id && !map[id]) {
         playlist.push({
           track: result.track,
           id
         });
+        map[id] = true;
       }
     }
 
@@ -98,9 +102,10 @@ youtube.getVideos = (tracks) => {
     "type": "video",
     "order": "relevance",
     'start-index': "1",
-    "max-results": "10",
+    "max-results": "15",
     "videoCategoryId": "10",
     "videoEmbeddable": "true",
+    "videoSyndicated": "true",
     "alt": "json",
     "part": "id,snippet",
     "key": "AIzaSyDA9zclpvT41AeFbsAaO5rVLZIx1yCFrvQ"

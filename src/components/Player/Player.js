@@ -9,7 +9,6 @@ class Player extends Component {
   }
 
   handleClick(id) {
-    console.log(id)
     this.props.callbackFromParent(id);
   }
 
